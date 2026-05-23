@@ -1,0 +1,475 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{1.5}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{STS 532 HW III}
+\begin{document}
+
+%%
+%% Title 
+%%
+\begin{center}
+\vspace{-0.6cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+
+\vspace{-0.5cm}
+\begin{flushleft}
+\noindent\textbox{\pgfornament[width = 9mm, color = black]{39}\hfill}\textbox{\hfil \textbf{\begin{large}Mathematical Statistics\end{large}}\hfil}\textbox{\hfill \pgfornament[width = 9mm, color = black]{40}}
+\end{flushleft}
+\vspace{-5mm}
+\begin{large}
+\textbf{Homework III} \\
+\end{large}
+
+\vspace{5mm}
+
+\begin{flushleft}
+\noindent\textbox{\pgfornament[width = 9mm, color = black, symmetry = h]{39}\hfill}\textbox{\hfil \textbf{\begin{large}Nolan R. H. Gagnon\end{large}}\hfill}\textbox{\hfill \pgfornament[width = 9mm, color = black, symmetry = h]{40}}
+\end{flushleft}
+
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\begin{center}
+\pgfornament[width = 75mm,
+             color = black]{89}
+\end{center}
+
+\vspace{5mm}
+
+%%
+%% 8.12
+%%
+\noindent\mybox{\colorbox{lightgray}{\textbf{C \& B 8.12}}}\hspace{3mm}\hrulefill 
+
+\noindent For samples of size $n = 1, 4, 16, 64, 100$ from a normal population with mean $\mu$ and known variance $\sigma^2$, plot the power function of the following LRTs. Take $\alpha = 0.05$.
+\begin{flushleft}
+\textbf{(a)} $H_0: \mu \leq 0$ versus $H_1: \mu > 0$ \\
+\textbf{(b)} $H_0: \mu = 0$ versus $H_1: \mu \neq 0$
+\end{flushleft}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Solution}}} \hspace{3mm}\hrulefill
+
+\noindent \textcolor{blue}{\textbf{(a)}}  Following Example 8.3.3 (from Casella and Berger page 384), we see that the power function for this hypothesis test is 
+\begin{align}
+\beta(\mu) &= P\left(Z > c + \frac{\mu_0 - \mu}{\sigma/\sqrt{n}}\right) \\
+&= P\left(Z > c - \frac{\mu}{\sigma/\sqrt{n}}\right). 
+\end{align}
+
+\noindent Our task now is to find the value of $c$ that forces the maximum probability of committing a Type I Error to be $\alpha = 0.05$. To this end, let $M_0 = (-\infty, 0]$ be the parameter space for the null hypothesis. If we force $$\beta(\sup M_0) = \beta(0)= 0.05,$$ then, due to the fact that $\beta(\mu)$ is an increasing function, we will have $\beta(\mu) \leq 0.05$ for all $\mu\in M_0$. But then we have guaranteed that the maximum probability of committing a Type I Error is $0.05$. Now, since we require $\beta(0) = P(Z > c) = 1 - P(Z \leq c) = 0.05$, we must choose $c = 1.645$ (obtained from the Standard Normal Probability Table). Therefore, the power function for this test is $$\beta(\mu) = P\left(Z > 1.645 - \frac{\mu}{\sigma/\sqrt{n}}\right).$$
+
+Plots of this function for $n = 1, 4, 16, 64, 100$ are provided on the next page. Note that for graphing purposes, we took $\sigma = 1$.  
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width = 0.7\textwidth]{parta.png}	  \caption{Power function for the test $H_0: \mu \leq 0$ versus $H_1: \mu > 0$}
+\end{figure}
+
+From the plot above, it is clear that, as $n$ increases, the probability of committing a Type II Error decreases uniformly. 
+
+
+\noindent \textcolor{blue}{\textbf{(b)}} The power function for this test is 
+\begin{align}
+\beta(\mu) &= P\left(Z \geq c - \frac{\mu}{\sigma/\sqrt{n}} \text{ or } Z \leq -c - \frac{\mu}{\sigma/\sqrt{n}}\right) \\
+&= 1 - P\left(-c-\frac{\mu}{\sigma/\sqrt{n}} \leq Z \leq c - \frac{\mu}{\sigma/\sqrt{n}}\right) \\
+&= 1 - P\left(Z \leq c - \frac{\mu}{\sigma/\sqrt{n}}\right) + P\left(Z\leq-c - \frac{\mu}{\sigma/\sqrt{n}} \right).
+\end{align}
+\noindent We require that
+\begin{align}
+\beta(0) &= 1 - P(Z\leq c) + P(Z\leq -c) \\
+&= P(Z > c) + P(Z\leq -c) \\
+&= 2P(Z\leq -c) \\
+&= 0.05,
+\end{align}
+in order to control the maximum Type I Error probability. But this means $c = 1.96$ (from the Standard Normal Probability Table). Therefore, the power function of this hypothesis test is $$\beta(\mu) = 1 - P\left(Z \leq 1.96 - \frac{\mu}{\sigma/\sqrt{n}}\right) + P\left(Z\leq-1.96 - \frac{\mu}{\sigma/\sqrt{n}} \right).$$
+
+\pagebreak
+
+Plots of this function for $n = 1, 4, 16, 64, 100$ are provided below.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width = 0.7\textwidth]{partb.png}	  \caption{Power function for the test $H_0: \mu = 0$ versus $H_1: \mu \neq 0$}
+\end{figure}
+
+Again, we see that, as $n$ increases, the probability of committing a Type II Error decreases uniformly.
+
+\hfill$\blacksquare$
+
+\vfill
+\begin{center}
+\pgfornament[width = 75mm,
+             color = black]{89}
+\end{center}
+\begin{center}
+\vspace{-0.6cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+%%
+%% 8.13
+%%
+\noindent\mybox{\colorbox{lightgray}{\textbf{C \& B 8.13}}}\hspace{3mm}\hrulefill 
+
+\noindent Let $X_1, X_2$ be iid uniform$(\theta, \theta + 1)$. For testing $H_0: \theta = 0$ versus $H_1: \theta > 0$, we have two competing tests:
+
+\begin{center}
+$\phi_1(X_1): \text{ Reject } H_0 \text{ if } X_1 > 0.95,$ \\
+$\phi_2(X_1, X_2): \text{ Reject } H_0 \text{ if } X_1 + X_2 > C$
+\end{center}
+
+\begin{flushleft}
+\textbf{(a)} Find the value of $C$ so that $\phi_2$ has the same size as $\phi_1$.\\
+\textbf{(b)} Calculate the power function of each test. Draw a well-labeled graph of each power function. \\
+\textbf{(c)} Prove or disprove: $\phi_2$ is a more powerful test than $\phi_1$.\\
+\textbf{(d)} Show how to get a test that has the same size but is more powerful than $\phi_2$.
+\end{flushleft}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Solution}}} \hspace{3mm}\hrulefill
+
+\noindent \textcolor{blue}{\textbf{(a)}} Let $\beta_1(\theta) = P_{\theta}(X > 0.95)$ be the power function for $\phi_1$.  The size of $\phi_1$ is
+\begin{align}
+\beta_1(0) &= P_0(X_1 > 0.95) \\
+&= \int_{0.95}^1 1 \hspace{2mm} dx_1 \\
+&= 0.05.
+\end{align}
+
+\noindent Now let $\beta_2(\theta) = P_{\theta}(X_1 + X_2 > C) = 1 - P_\theta(X_1 + X_2 \leq C)$ be the power function for $\phi_2$. The size of $\phi_2$ is $\beta_2(0) = 1- P_0(X_1 + X_2 \leq C)$. Examine the figure below.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width = 0.6\textwidth]{hw3_813.png}	  \caption{Regions of Integration for calculating $P_0(X_1+X_2 \leq C)$}
+\end{figure}
+
+\noindent This figure shows the regions of integration for calculating $P_0(X_1 + X_2 \leq C)$.  If we require $\beta_2(0) = 0.05$, it must be the case that $P_0(X_1 + X_2 \leq C) = 0.95$.  Now, since the joint pdf of $X_1$ and $X_2$ is $f(x_1, x_2) = 1$ for $0 \leq x_1, x_2 \leq 1$ ($0$, otherwise), it follows that calculating $P_0(X_1 + X_2 \leq C)$ is the same as calculating the area of \textbf{$\text{R}_1$} or \textbf{$\text{R}_2$} (depending on the value of $C$). It is clear from the figure, however, that the area of \textbf{$\text{R}_1$} \textbf{cannot} be $0.95$.  The largest it can be is $0.5$, i.e., half the area of the unit square drawn in the figure. Thus, our region of integration must be \textbf{$\text{R}_2$}, which means $C$ must be some number between 1 and 2. So we have
+\begin{align}
+\beta_2(0) &= P_0(X_1 + X_2 > C) \\
+&= 1 - P_0(X_1 + X_2 \leq C) \\
+&= 1 - \left(1 - \int\limits_{C-1}^1\int\limits_{C-x_2}^1 1 \hspace{1mm} dx_1 dx_2\right) \\
+&= \int\limits_{C-1}^1 \left[(1-C)+x_2\right] \hspace{1mm} dx_2 \\
+&= (1-C) + 0.5 + (1-C)^2 - 0.5(1-C)^2.
+\end{align}
+Setting this equal to $0.05$ and rearranging yields the quadratic equation $$C^2 -4C +3.9 =0,$$ which has solutions $C_1 \approx 1.68377$ and $C_2 \approx 2.31623.$ Clearly $C$ cannot be greater than $2$, else $P_0(X_1 + X_2 > C) = 0$.  Thus, we choose $C = C_1 \approx 1.68377.$ 
+
+\vspace{3mm}
+
+\noindent \textcolor{blue}{\textbf{(b)}} The power function of $\phi_1$ is $\beta_1(\theta) = P_{\theta}(X_1 > 0.95).$  If $\theta > 0.95$, then $X_1$ is necessarily greater than $0.95$, so $P_\theta(X_1 > 0.95) = 1$.  If $\theta < -0.05$, then it is impossible for $X_1$ to be greater than $0.95$, so $P_\theta(X_1 > 0.95) = 0$. Finally, if $-0.05 < \theta < 0.95$, then 
+\begin{align}
+P_\theta(X_1 > 0.95) &= \int\limits_{0.95}^{\theta + 1} 1 \hspace{1mm} dx_1 \\
+& = \theta + 1 - 0.95 \\
+&= \theta + 0.05.
+\end{align}
+In summary, 
+$$\beta_1(\theta) = 
+\begin{cases}
+0 & \text{ if } \theta < -0.05 \\
+\theta + 0.05 & \text{ if } -0.05 < \theta < 0.95 \\
+1 & \text{ if } \theta > 0.95.
+\end{cases}
+$$
+
+A plot of $\beta_1(\theta)$ is given on the next page.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width = 0.6\textwidth]{powerfunc1.png}	  \caption{Plot of $\beta_1(\theta)$}
+\end{figure}
+\pagebreak
+Now $\beta_2(\theta) = 1 - P_\theta(X_1 + X_2 \leq 1.68377)$ will also be a piecewise function. Note that the smallest $X_1 + X_2$ can be is $2\theta$, and the largest it can be is $2\theta + 2$. If $\theta > 1.68377 / 2 = 0.8419$, then $P_\theta(X_1 + X_2 \leq 1.68377) = 0$ and $\beta_2(\theta) = 1$. If $\theta \leq \frac{1.68377 - 2}{2} = -0.1581$, then $P_\theta(X_1 + X_2 \leq 1.68377) = 1$, and $\beta_2(\theta) = 0$. The figure below will help us understand the behavior of $\beta_2(\theta)$ for $-0.1581 \leq \theta \leq 0.8419$. 
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width = 0.7\textwidth]{theta_regs.png}	  \caption{Regions of integration for $-0.1581 \leq \theta \leq 0.8419$}
+\end{figure}
+
+As can be seen in the figure, when $-0.1581 \leq \theta \leq 0.3419$,
+\begin{align}
+\beta_2(\theta) &= P_\theta(X_1+X_2 > 1.68377) \\
+&= \int\limits_{1.68377-(\theta+1)}^{\theta+1}\int\limits_{1.68377-x_2}^{\theta+1} 1 \hspace{1mm} dx_1 dx_2 \\
+&= \int\limits_{0.68377-\theta}^{\theta+1} (\theta - 0.68377 + x_2) \hspace{1mm} dx_2 \\
+&= \left[(\theta-0.68377)x_2 +\frac{x_2^2}{2}\right]^{\theta+1}_{0.68377-\theta} \\
+&= \frac{[1.68377 - 2(\theta+1)]^2}{2} \\
+&= \frac{(0.31623 + 2\theta)^2}{2}.
+\end{align}
+For $0.3419 \leq \theta \leq 0.8419$,
+\begin{align}
+\beta_2(\theta) &= P_\theta(X_1 + X_2 >1.68377) \\
+&= 1 - P_\theta(X_1+X_2\leq 1.68377) \\
+&= 1 - \int\limits_{\theta}^{1.68377-\theta}\int\limits_{\theta}^{1.68377-x_2} 1 \hspace{1mm} dx_1 dx_2 \\
+&= 1 - \int\limits_{\theta}^{1.68377-\theta} (1.68377 -x_2 - \theta) \hspace{1mm} dx_2 \\
+&= 1 - \left[(1.68377-\theta)^2 - \frac{(1.68377-\theta)^2}{2}\right] + \left[(1.68377-\theta)\theta -\frac{\theta^2}{2}\right] \\
+&= \frac{-0.83508 + 6.73508\theta - 4\theta^2}{2}.
+\end{align}
+In summary, 
+$$
+\beta_2(\theta) = 
+\begin{cases}
+0 & \text{ if } \theta \leq -0.1581 \\
+\frac{(0.31623+2\theta)^2}{2} & \text{ if } -0.1581 \leq \theta \leq 0.3419 \\
+\frac{-0.83508+6.73508\theta -4\theta^2}{2} & \text{ if } 0.3419 \leq \theta \leq 0.8419 \\
+1 & \text{ if } \theta \geq 0.8419.
+\end{cases}
+$$
+A plot of $\beta_2(\theta)$ is given on the next page.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width = 0.6\textwidth]{beta_2.png}	  \caption{Plot of $\beta_2(\theta)$}
+\end{figure}
+\pagebreak
+
+\noindent \textcolor{blue}{\textbf{(c)}}  A plot comparing $\beta_1(\theta)$ and $\beta_2(\theta)$ is provided below.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width = 0.6\textwidth]{comp_power_funcs.png}	  \caption{Comparison of $\beta_1(\theta)$ and $\beta_2(\theta)$}
+\end{figure}
+
+\noindent From the plot above, it is clear that $\phi_2$ is not uniformly more powerful than $\phi_1$.  
+
+\hfill$\blacksquare$
+
+\vfill
+\begin{center}
+\pgfornament[width = 75mm,
+             color = black]{89}
+\end{center}
+\begin{center}
+\vspace{-0.6cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+%%
+%% 8.14
+%%
+\noindent\mybox{\colorbox{lightgray}{\textbf{C \& B 8.14}}}\hspace{3mm}\hrulefill 
+
+\noindent For a random sample $X_1, X_2, \ldots, X_n$ of Bernoulli($p$) variables, it is desired to test
+$$
+H_0: p = 0.49 \text{ versus } H_1: p = 0.51.
+$$
+Use the Central Limit Theorem to determine, approximately, the sample size needed so that the two probabilities of error are both about 0.01. Use a test function that rejects $H_0$ if $\sum\limits_{i=1}^n X_i$ is large.
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Solution}}} \hspace{3mm}\hrulefill
+
+\noindent By the Central Limit Theorem, the distribution of $\frac{\sqrt{n}(\bar{X}_n - p)}{\sqrt{p(1-p)}}$ is approximately standard normal for large $n$.  But we can write
+\begin{align}
+\frac{\sqrt{n}(\bar{X}_n - p)}{\sqrt{p(1-p)}} &= \frac{\sqrt{n}}{\sqrt{p(1-p)}}\left(\frac{1}{n}\sum\limits_{i=1}^n X_i - p\right) \\
+&= \frac{\sqrt{n}}{\sqrt{p(1-p)}}\left(\frac{\sum\limits_{i=1}^n X_i - np}{n}\right) \\
+&= \frac{\sum\limits_{i=1}^n X_i - np}{\sqrt{np(1-p)}}.
+\end{align}
+Now, the power function for this hypothesis test is 
+\begin{align}
+\beta(p) &= P_p\left(\sum\limits_{i=1}^n X_i > c\right) \\ 
+&= P_p\left(\frac{\sum\limits_{i=1}^n X_i - np}{\sqrt{np(1-p)}} > \frac{c - np}{\sqrt{np(1-p)}}\right) \\
+&\approx P\left(Z > \frac{c-np}{\sqrt{np(1-p)}} \right) \\
+&= 1 - P\left(Z \leq \frac{c-np}{\sqrt{np(1-p)}} \right), 
+\end{align}
+where $Z$ has the standard normal distribution. The probability of committing a Type I Error is $$\beta(0.49) = 1 - P\left(Z \leq \frac{c-0.49n}{\sqrt{n(0.49)(1-0.49)}} \right)$$ and the probability of committing a Type II Error is $$1 - \beta(0.51) = P\left(Z \leq \frac{c-0.51n}{\sqrt{n(0.51)(1-0.51)}}\right).$$ We want both of these probabilities to be approximately $0.01$, which gives us the two equations
+$$P\left(Z \leq \frac{c-0.49n}{\sqrt{n(0.49)(1-0.49)}} \right) = 0.99$$
+$$P\left(Z \leq \frac{c-0.51n}{\sqrt{n(0.51)(1-0.51)}}\right) = 0.01.$$
+Using the Standard Normal Probability Table, these equations become
+$$\frac{c-0.49n}{\sqrt{n(0.49)(1-0.49)}} = 2.33$$
+$$\frac{c-0.51n}{\sqrt{n(0.51)(1-0.51)}} = -2.33.$$
+The solution to this system of equations is $(c, n) \approx (6783.5, 13567)$.  Thus, a sample of size $n = 13567$ is required to achieve the specified error probabilities.
+
+\hfill$\blacksquare$
+
+\vfill
+\begin{center}
+\pgfornament[width = 75mm,
+             color = black]{89}
+\end{center}
+\begin{center}
+\vspace{-0.6cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+%%
+%% 8.15
+%%
+\noindent\mybox{\colorbox{lightgray}{\textbf{C \& B 8.15}}}\hspace{3mm}\hrulefill 
+
+\noindent Show that for a random sample $X_1, X_2, \ldots, X_n$ from a $n(0, \sigma^2)$ population, the most powerful test of $H_0: \sigma = \sigma_0$ versus $H_1: \sigma = \sigma_1$, where $\sigma_0 < \sigma_1$, is given by
+$$
+\phi\left(\sum X_i^2\right) = 
+\begin{cases}
+1 & \text{ if } \sum X_i^2 > c \\
+0 & \text { if } \sum X_i^2 \leq c.
+\end{cases}
+$$
+For a given value of $\alpha$, the size of the Type I Error, show how the value of $c$ is explicitly determined. 
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Solution}}} \hspace{3mm}\hrulefill
+
+\noindent Let $f$ be the pdf of the $X_i$.  Suppose $$f(\textbf{x}|\sigma_1) > kf(\textbf{x}|\sigma_0),$$ where $k\geq 0$.  Then
+\begin{align}
+\frac{f(\textbf{x}|\sigma_1)}{f(\textbf{x}|\sigma_0)} &= \frac{\left(\frac{1}{\sqrt{2\pi}\sigma_1}\right)^n \exp\left\lbrace\frac{-1}{2\sigma_1}\sum\limits_{i=1}^n X_i^2 \right\rbrace}{\left(\frac{1}{\sqrt{2\pi}\sigma_0}\right)^n \exp\left\lbrace\frac{-1}{2\sigma_0}\sum\limits_{i=1}^n X_i^2 \right\rbrace} \\
+&= \left(\frac{\sigma_0}{\sigma_1}\right)^n \exp\left\lbrace\left( \frac{1}{2\sigma_0} - \frac{1}{2\sigma_1}\right)\sum\limits_{i=1}^n X_i^2 \right\rbrace \\
+&> k.
+\end{align}
+Multiplying by $(\sigma_0/\sigma_1)^n$ on both sides of the inequality and taking the natural logarithm yields
+\begin{align}
+\left( \frac{1}{2\sigma_0} - \frac{1}{2\sigma_1}\right)\sum\limits_{i=1}^n X_i^2 > \ln\left[\left(\frac{\sigma_1}{\sigma_0}\right)^n k\right].
+\end{align}
+Now, since $\sigma_0 < \sigma_1$, the quantity $\left( \frac{1}{2\sigma_0} - \frac{1}{2\sigma_1}\right)$ is positive, and dividing by it on both sides of the above inequality does not change the direction of the inequality symbol. So we have $$\sum\limits_{i=1}^n X_i^2 > \frac{\ln\left[\left(\frac{\sigma_1}{\sigma_0}\right)^n k\right]}{\left( \frac{1}{2\sigma_0} - \frac{1}{2\sigma_1}\right)} = c.$$ Therefore, if $f(\textbf{x}|\sigma_1) > k f(\textbf{x}|\sigma_0)$, then $\textbf{x}$ is in the rejection region. By similar reasoning, we can show that $\textbf{x}$ is not in the rejection region (i.e., $\sum\limits_{i=1}^n X_i^2 \leq c$) if $f(\textbf{x}|\sigma_1) < k f(\textbf{x}|\sigma_0).$ Thus, by the Neyman-Pearson Lemma, $\phi$ is the most powerful test of $H_0: \sigma = \sigma_0$ versus $H_1: \sigma = \sigma_1$.  
+
+Now, for a given value of $\alpha$, we can calculate $c$ using 
+\begin{align}
+P_{\sigma_0}\left(\sum\limits_{i=1}^n X_i^2 > c\right) &= P\left(\sigma_0^2\sum\limits_{i=1}^n \left(\frac{X_i}{\sigma_0}\right)^2 > c\right) \\
+&= P\left(\sigma_0^2Y > c\right) \\
+&= P\left(Y > c / \sigma_0^2\right) \\
+&= \alpha,
+\end{align}
+where $Y \sim \chi^2(n)$. Thus $c/\sigma_0^2 = \chi^2_{n, \alpha}$, or $$c = \chi^2_{n, \alpha}\sigma_0^2.$$
+
+\hfill$\blacksquare$
+
+\vfill
+\begin{center}
+\pgfornament[width = 75mm,
+             color = black]{89}
+\end{center}
+\begin{center}
+\vspace{-0.6cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+%%
+%% 8.19
+%%
+\noindent\mybox{\colorbox{lightgray}{\textbf{C \& B 8.19}}}\hspace{3mm}\hrulefill 
+
+\noindent The random variable $X$ has pdf $f(x) = e^{-x}, x > 0$. One observation is obtained on the random variable $Y = X^\theta$, and a test of $H_0 : \theta = 1$ versus $H_1: \theta = 2$ needs to be constructed. Find the UMP level $\alpha = 0.10$ test and compute the Type II Error probability.
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Solution}}} \hspace{3mm}\hrulefill
+
+\noindent The pdf of $X$ indicates that it has an exponential distribution with parameter $\beta = 1$. Therefore, $Y$ must have a Weibull distribution with parameters $\gamma = \frac{1}{\theta}, \beta = 1$. The pdf of $Y$ is then 
+$$g(y|\theta) =
+\begin{cases}
+\frac{1}{\theta}y^{1/\theta - 1}\exp\left\lbrace-y^{1/\theta} \right\rbrace & \text{ if } 0 \leq y < \infty \\
+0 & \text{ otherwise. }
+\end{cases}
+$$  
+By the Neyman-Pearson Lemma, a test $\phi$ with rejection region $R$ satisfying $\textbf{y} \in R$ if $g(\textbf{y}|2) > kg(\textbf{y}|1)$ (with $k\geq 0$) and power function $\beta(\theta)$ satisfying $\beta(1) = 0.10$ is an UMP level $\alpha = 0.10$ test of the hypotheses given in the problem. Now, because only one observation is taken on $Y$, the inequality $g(\textbf{y}|2) > kg(\textbf{y}|1)$ becomes $$\frac{1}{2}y^{-1/2}\exp\left\lbrace y-y^{1/2}\right\rbrace > k.$$ 
+As can be seen in the figure below, the function on the left-hand side of the above inequality achieves a global minimum at $y = 1$. 
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width = 0.55\textwidth]{lhsineq.png}	  \caption{Plot of $f(y) = \frac{1}{2}y^{-1/2}\exp\left\lbrace y - y^{1/2} \right\rbrace$}
+\end{figure}
+
+\noindent Thus the information expressed in the inequality above can be re-expressed with the two inequalities $0 < y \leq k_1 \leq 1$ and $1 \leq k_2 \leq y$. If these inequalities describe the rejection region for the UMP test, then the size of this test is 
+\begin{align}
+\beta(1) &= P_1(Y \leq k_1 \text{ or } Y \geq k_2) \\
+&= P_1(Y \leq k_1) + P_1(Y \geq k_2).
+\end{align}
+If $\theta = 1$, then the distribution of $Y$ is exponential with mean equal to $1$. Thus,
+\begin{align}
+P_1(Y \leq k_1) + P_1(Y \geq k_2) &= 1 - e^{-k_1} + e^{-k_2}.
+\end{align}
+We must find $k_1$ and $k_2$ such that $\beta(1) = 1 - e^{-k_1}+e^{-k_2} = 0.10$. We can do this using MATLAB.  A plot of $\beta(1)$ for different values of $k_1$ and $k_2$ is given below.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width = 0.55\textwidth]{3d-plot.png}	  \caption{Plot of $1 - e^{-k_1}+e^{-k_2}$}
+\end{figure}
+\noindent From the plot, we can see that if we choose $k_1 = 0.082332$ and $k_2 = 3.864865$, then $1 - e^{-k_1}+e^{-k_2} \approx 0.1$.
+
+For the $k_1$ and $k_2$ chosen above, the probability of making a Type II Error is
+\begin{align}
+1 - \beta(2) &= P_2(0.082332 \leq Y \leq 3.864865) \\
+&= \int\limits_{0.082332}^{3.864865}\frac{1}{2}y^{-1/2}\exp\left\lbrace -y^{1/2} \right\rbrace \hspace{1mm} dy \\
+&= \left[-\exp\left\lbrace -y^{1/2}\right\rbrace\right]_{0.082332}^{3.864865} \\
+&\approx 0.61053.
+\end{align}
+
+\hfill$\blacksquare$
+\vfill
+\begin{center}
+\pgfornament[width = 75mm,
+             color = black]{89}
+\end{center}
+\begin{center}
+\vspace{-0.6cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+\end{document}
