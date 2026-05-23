@@ -1,0 +1,439 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+
+\linespread{1.8}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{1pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+\title{STS 531: HW IX}
+\begin{document}
+
+%%
+%% Title 
+%%
+\begin{center}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill \\
+\vspace{-0.3cm}
+
+\begin{Large}
+\textbf{STS 531:  Mathematical Statistics I} \\
+\textbf{Homework IX} \\
+\end{Large}
+\begin{large}
+\end{large}
+\vspace{-7mm}
+\noindent \textbf{Date:} \hfill \textbf{Author:}\\
+\noindent\today \hfill Nolan R. H. Gagnon \\
+
+\vspace{-0.4cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\vspace{7mm}
+
+%%
+%% PROBLEM ONE
+%%
+\noindent\mybox{\textbf{Problem 1}}\hspace{3mm}Let $Y_1<Y_2<Y_3<Y_4$ be the order statistics of a random sample of size $n = 4$ from a population with density function 
+
+$$
+f_X(x) = \begin{cases} 6x(1-x), \hspace{5mm} 0\leq x \leq 1 \\
+0, \hspace{18mm} \text{elsewhere.}
+\end{cases}
+$$
+
+\noindent Find the following probabilities: 
+\vspace{-0.3cm}
+\begin{flushleft}
+\textbf{(a)}  $P\left(0.3 < Y_3 < 0.5\right)$ \\
+\textbf{(b)}  $P\left(\frac{1}{3} < Y_2 < \frac{3}{4}\right)$
+\end{flushleft}
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution}}\hspace{3mm} \textbf{(a)} The population's cumulative distribution function is 
+\begin{align}
+F_X(x) &= \int\limits_0^x6t(1-t) \hspace{1mm} dt \\
+&= 3x^2 - 2x^3,
+\end{align}
+
+\noindent for $0\leq x \leq 1$. For $x<0$, $F(x) = 0$, and for $x>1$, $F(x)=1$.  Thus, (by Theorem 5.4.4 from Casella and Berger) the density of $Y_3$ is
+\begin{align}
+f_{Y_3}(x) &= \frac{4!}{2!1!}f_X(x)[F_X(x)]^2[1-F_X(x)]^1\\
+& = 12\left(6x(1-x)[3x^2 - 2x^3]^2[1-3x^2+2x^3]\right),
+\end{align}
+\noindent for $0\leq x \leq 1$.  Using this density, the desired probability is
+\begin{align}
+P\left(0.3 < Y_3 < 0.5\right) &= \int\limits_{0.3}^{0.5}12\left(6x(1-x)[3x^2 - 2x^3]^2[1-3x^2+2x^3]\right) \hspace{1mm} dx.
+\end{align}
+
+\noindent To simplify this integral, let $u = 3x^2 -2x^3$.  Then $du = 6x(1-x)\hspace{1mm}dx$.  With this transformation,
+\begin{align}
+\int\limits_{0.3}^{0.5}12\left(6x(1-x)[3x^2 - 2x^3]^2[1-3x^2+2x^3]\right) \hspace{1mm} dx &= 12\int\limits_{0.216}^{0.5}u^2(1-u) \hspace{1mm} du \\
+&= \left[4u^3 - 3u^4\right]^{0.5}_{0.216} \\
+&\approx 0.2787.
+\end{align}
+\noindent Therefore, $P\left(0.3 < Y_3 < 0.5\right) \approx 0.2787$.
+
+\vspace{5mm}
+
+\noindent\textbf{(b)}  Again we use Theorem 5.4.4 to obtain the density of $Y_2$:  
+\begin{align}
+f_{Y_2}(x) &= \frac{4!}{1!2!}f_X(x)\left[F_X(x)\right]^1\left[1-F_X(x)\right]^2 \\
+&= 12(6x(1-x)[3x^2-2x^3][1-3x^2+2x^3]^2),
+\end{align}
+\noindent for $0\leq x \leq 1$.  The desired probability is then
+\begin{align}
+P\left(\frac{1}{3} < Y_2 < \frac{3}{4}\right) &= \int\limits_{\frac{1}{3}}^{\frac{3}{4}} 12(6x(1-x)[3x^2-2x^3][1-3x^2+2x^3]^2) \hspace{1mm} dx.
+\end{align}
+\noindent Letting $u = 3x^2-2x^3$, we have 
+\begin{align}
+\int\limits_{\frac{1}{3}}^{\frac{3}{4}} 12(6x(1-x)[3x^2-2x^3][1-3x^2+2x^3]^2) \hspace{1mm} dx &= 12\int_{\frac{7}{27}}^{\frac{27}{32}}u(1-u)^2 \hspace{1mm} du \\
+&= 12\int_{\frac{7}{27}}^{\frac{27}{32}}u[1 - 2u + u^2] \hspace{1mm} du \\
+&= 12\int_{\frac{7}{27}}^{\frac{27}{32}}u - 2u^2 + u^3 \hspace{1mm} du \\
+&= \left[6u^2-8u^3+3u^4\right]^{\frac{27}{32}}_{\frac{7}{27}} \\
+&\approx 0.7091.
+\end{align}
+
+\noindent Therefore, $P\left(\frac{1}{3} < Y_2 < \frac{3}{4}\right) \approx 0.7091.$ \hfill$\blacksquare$
+
+\begin{center}
+\vspace{-0.4cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\vspace{3mm}
+
+%%
+%% PROBLEM 2
+%%
+\noindent\mybox{\textbf{Problem 2}} \hspace{3mm} Let $X_1, X_2, X_3$ be independent random variables with probability density function 
+$$
+f(x) = 
+\begin{cases}
+\exp\left\lbrace-(x-\theta)\right\rbrace, \hspace{5mm} x > \theta \\
+0 \hspace{29mm} \text{elsewhere.}
+\end{cases}
+$$
+\noindent Determine $c=c(\theta)$ for which $P(\theta < Y_3 < c) = 0.90$, where $Y_3$ is the third order statistic.  
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution}} \hspace{3mm} The cumulative distribution function for the population is 
+\begin{align}
+F_X(x) &= \int\limits_{\theta}^{x}\exp\left\lbrace-(t-\theta)\right\rbrace \hspace{1mm} dt \\
+&= \exp(\theta)\int\limits_{\theta}^{x}\exp(-t) \hspace{1mm} dt \\
+&= -\exp(\theta)\left[\exp(-x) - \exp(-\theta)\right] \\
+&= 1 - \exp\lbrace-(x - \theta)\rbrace,
+\end{align}
+
+\noindent for $x>\theta$.  By Theorem 5.4.4, we can find the probability density function of $Y_3$:
+\begin{align}
+f_{Y_3}(x) &= \frac{3!}{2!0!}f_X(x)[F_X(x)]^2 \\
+&= 3\exp\lbrace-(x-\theta)\rbrace[1 - \exp\lbrace-(x - \theta)\rbrace]^2,
+\end{align}
+\noindent for $x>\theta$.  Now, 
+\begin{align}
+P(\theta < Y_3 < c) &= \int\limits_{\theta}^c f_{Y_3}(x) \hspace{1mm} dx \\
+&= \int\limits_{\theta}^c 3\exp\lbrace-(x-\theta)\rbrace[1 - \exp\lbrace-(x - \theta)\rbrace]^2 \hspace{1mm} dx.
+\end{align}
+\noindent Let $u = \exp\lbrace-(x-\theta)\rbrace$.  With this transformation, we have
+\begin{align}
+\int\limits_{\theta}^c 3\exp\lbrace-(x-\theta)\rbrace[1 - \exp\lbrace-(x - \theta)\rbrace]^2 \hspace{1mm} dx &= -3\int\limits_{1}^{\exp(\theta - c)} (1 - u)^2 \hspace{1mm} du.
+\end{align}
+\noindent Now let $v = 1 - u$.  Then
+\begin{align}
+-3\int\limits_{1}^{\exp(\theta - c)} (1 - u)^2 \hspace{1mm} du &= \int\limits_0^{1-\exp(\theta-c)}3v^2 \hspace{1mm} dv \\
+&= \left[v^3\right]^{1-\exp(\theta-c)}_0 \\
+&= (1-\exp(\theta-c))^3.
+\end{align}
+Setting this equal to $0.90$ and solving for $c$, we have $$c = \theta - \ln\left(1-0.9^{\frac{1}{3}}\right) \approx \theta + 3.366.$$
+
+\vspace{-5mm}
+\hfill$\blacksquare$
+
+\begin{center}
+\vspace{-0.4cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\vspace{3mm}
+
+%%
+%% PROBLEM 3
+%%
+\noindent\mybox{\textbf{Problem 3}}  For the sample from Problem 2, find the pdf of $S_M$ (the sample median), where
+$$
+S_M = 
+\begin{cases}
+Y_{\frac{1}{2}(n+1)} \hspace{17mm} \text{if } n \text{ is odd} \\
+\frac{1}{2}\left(Y_{\frac{n}{2}} + Y_{\frac{n}{2}+1}\right) \hspace{5mm} \text{if } n \text{ is even.}
+\end{cases}
+$$
+
+\vspace{3mm}
+
+\noindent\mybox{\textbf{Solution}}  With a sample size of $n = 3$, we have 
+\begin{align}
+f_{S_M}(x) &= f_{Y_2}(x) \\
+&= \frac{3!}{(2-1)!(3-2)!}f_X(x)[F_X(x)]^{2-1}[1-F_X(x)]^{3-2} \\
+&= 6\exp[-2(x-\theta)]\lbrace 1 - \exp[-(x-\theta)].
+\end{align}
+
+\vspace{-2mm}
+\hfill$\blacksquare$
+
+\begin{center}
+\vspace{-0.4cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\vspace{7mm}
+
+%%
+%% PROBLEM 4
+%%
+\noindent\mybox{\textbf{Problem 4}}  Suppose $X_1, X_2, X_3$ are three independent random variables having probability density function 
+$$
+f_X(x) = 
+\begin{cases}
+2(2-x), \hspace{5mm} 1\leq x \leq 2 \\
+0, \hspace{16mm} \text{elsewhere.}
+\end{cases}
+$$
+
+\begin{flushleft}
+\textbf{(a)}  Find the pdf of $S_M$. \\
+\textbf{(b)}  Calculate $P(Y_2 > m)$ where $m$ is the median of $f$.
+\end{flushleft}
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution}}  \textbf{(a)}  The cumulative distribution function for the population is 
+\begin{align}
+F_X(x) &= \int_1^x 2(2-t) \hspace{1mm} dt \\
+&= [4t-t^2]^x_1 \\
+&= 4x-x^2-3.
+\end{align}
+
+Since our sample size is $n=3$, we have $S_M = Y_2$.  Therefore, the pdf of $S_M$ is
+\begin{align}
+f_{S_M}(x) &= f_{Y_2}(x) \\
+&= \frac{3!}{(2-1)!(3-2)!}f_X(x)[F_X(x)]^{2-1}[1-F_X(x)]^{3-2} \\
+&= 12(2-x)[4x-x^2-3][1-(4x-x^2-3)]. 
+\end{align}
+
+\vspace{3mm}
+
+\noindent\textbf{(b)}  The median of $f$ can be found by solving the equation $$\int_1^m 2(2-x) \hspace{1mm} dx = 0.5.$$  We have
+\begin{align}
+\int_1^m 2(2-x) \hspace{1mm} dx &= 4m-m^2 -3.
+\end{align}
+
+\noindent Setting this equal to $0.5$ and solving for $m$ using the quadratic formula yields $m = 2 \pm \frac{\sqrt{2}}{2}$.  But $2+\frac{\sqrt{2}}{2}$ is outside the range for the random variable representing the population.  Therefore, $m=2-\frac{\sqrt{2}}{2}$ and 
+\begin{align}
+P(Y_2 > m) &= P\left(Y_2 > 2 - \frac{\sqrt{2}}{2}\right) \\
+&= 1 - F_X\left(2-\frac{\sqrt{2}}{2}\right) \\
+&= 1 - 0.5 \\
+&= 0.5.
+\end{align}
+
+\vspace{-2mm}
+\hfill$\blacksquare$
+
+\begin{center}
+\vspace{-0.4cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\vspace{10mm}
+
+%%
+%% PROBLEM 5
+%%
+\noindent\mybox{\textbf{Problem 5}}  Let $X_1, X_2, \ldots X_n$ be independent random variables and suppose that $X_i$ has density $f_i$ $(i = 1, 2, \ldots n)$.  Find the density of
+\begin{flushleft}
+\textbf{(a)}  $Y_1 = \min(X_1, X_2, \ldots, X_n)$ \\
+\textbf{(b)}  $Y_n = \max(X_1, X_2, \ldots, X_n)$
+\end{flushleft}
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution}}  \textbf{(a)}  Then cumulative distribution function for $Y_1$ is
+\begin{align}
+F_{Y_1}(x) &= P(Y_1 \leq x) \\
+&= 1 - P(Y_1 > x) \\
+&= 1 - P(\min(X_1,X_2,\ldots,X_n) > x) \\
+&= 1 - P(X_1 > x, X_2 > x, \ldots X_n > x).
+\end{align}
+\noindent Since $X_1, X_2,\ldots X_n$ are independent, we have
+\begin{align}
+1 - P(X_1 > x, X_2 > x, \ldots X_n > x) &= 1 - \prod\limits_{i=1}^nP(X_i > x) \\
+&= 1 - \prod\limits_{i=1}^n[1- P(X_i \leq x)] \\
+&= 1 - \prod\limits_{i=1}^n[1-F_i(x)].
+\end{align}
+\noindent So $F_{Y_1}(x) = 1 - \prod\limits_{i=1}^n[1-F_i(x)]$.  Therefore, 
+
+\begin{align}
+f_{Y_1}(x) &= -\frac{d}{dx}\prod\limits_{i=1}^n[1-F_i(x)] \\
+&= -\left[\frac{d}{dx}(1-F_1(x))\prod\limits_{\substack{1\leq i \leq n \\ i\neq 1}}[1-F_i(x)] + \ldots +\frac{d}{dx}(1-F_n(x))\prod\limits_{\substack{1\leq i \leq n \\ i\neq n}}[1-F_i(x)]\right] \\
+&=f_1(x)\prod\limits_{\substack{1\leq i \leq n \\ i\neq 1}}[1-F_i(x)] + \ldots +f_n(x)\prod\limits_{\substack{1\leq i \leq n \\ i\neq n}}[1-F_i(x)] \\
+&= \sum\limits_{i=1}^nf_i(x)\prod\limits_{\substack{1\leq j \leq n \\ j\neq i}}[1-F_j(x)].
+\end{align}
+
+\vspace{3mm}
+
+\noindent\textbf{(b)}  The cumulative distribution function for $Y_n$ is
+\begin{align}
+F_{Y_n}(x) &= P(Y_n \leq x) \\
+&= P(\max(X_1,X_2,\ldots X_n) \leq x) \\
+&= P(X_1 \leq x, X_2 \leq x, \ldots X_n \leq x) \\
+&= P(X_1 \leq x)P(X_2 \leq x)\cdots P(X_n \leq x) \\
+&= \prod\limits_{i=1}^nP(X_i \leq x) \\
+&= \prod\limits_{i=1}^nF_i(x),
+\end{align}
+
+\noindent where the third-to-last equality follows from the independence of $X_1, X_2, \ldots X_n$.  So the probability density function of $Y_n$ is 
+
+\begin{align}
+f_{Y_n}(x) &= \frac{d}{dx}\prod\limits_{i=1}^nF_i(x) \\
+&= \frac{d}{dx}F_1(x)\prod\limits_{\substack{1\leq i \leq n \\ i\neq 1}}F_i(x) + \ldots +\frac{d}{dx}F_n(x)\prod\limits_{\substack{1\leq i \leq n \\ i\neq n}}F_i(x)\\
+&=f_1(x)\prod\limits_{\substack{1\leq i \leq n \\ i\neq 1}}F_i(x) + \ldots +f_n(x)\prod\limits_{\substack{1\leq i \leq n \\ i\neq n}}F_i(x) \\
+&= \sum\limits_{i=1}^nf_i(x)\prod\limits_{\substack{1\leq j \leq n \\ j\neq i}}F_j(x).
+\end{align}
+
+\vspace{-2mm}
+\hfill$\blacksquare$
+
+\begin{center}
+\vspace{-0.4cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\vspace{7mm}
+
+%%
+%% PROBLEM 6
+%%
+\noindent\mybox{\textbf{Problem 6}}  Consider a system with $n$ components $c_1, c_2, \ldots c_n$ which are connected in series.  If the component $c_i$ has failure density that is exponential with mean $\theta_i$, $i=1,2,\ldots n$
+\begin{flushleft}
+\textbf{(a)}  What is the reliability of the system?  That is, find the survival function. \\
+\textbf{(b)}  What is the mean failure time of the system?
+\end{flushleft}
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution}} \textbf{(a)}  Let $T_i$ represent the time to failure of component $c_i$.  Then $T_i \sim \text{exp}(\theta_i)$.  The survival function for the system is $$S(x) = 1 - F_{Y_1}(x),$$ where $Y_1=\min(T_1, T_2, \ldots, T_n)$.  From Problem 5, we know that $$F_{Y_1}(x) = 1-\prod\limits_{i=1}^n[1-F_{T_i}(x)].$$  Since the $T_i$'s are exponentially distributed, we have
+\begin{align}
+1 - F_{T_i}(x) &= 1 - (1-e^{-x/\theta_i}) \\
+&= e^{-x/\theta_i}.
+\end{align}
+
+\noindent Therefore
+\begin{align}
+S(x) &= 1-\left[1-\prod\limits_{i=1}^n e^{-x/\theta_i}\right] \\
+&= e^{-x\sum\limits_{i=1}^n\frac{1}{\theta_i}}.
+\end{align}
+
+\noindent \textbf{(b)}  From \textbf{part a}, we can see that $Y_1$ (the time to failure of the series system) has an exponential distribution with mean $$\beta = \frac{1}{\sum\limits_{i=1}^n\frac{1}{\theta_i}}.$$
+
+\vspace{-2mm}
+\hfill$\blacksquare$
+
+\begin{center}
+\vspace{-0.4cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\vspace{7mm}
+
+%%
+%% PROBLEM 7
+%%
+\noindent\mybox{\textbf{Problem 7}} Suppose the components from Problem 6 are connected in parallel.  Find the reliability of the system and an expression for the mean failure time.
+
+\vspace{10mm}
+
+\noindent\mybox{\textbf{Solution}}  A parallel system fails when the last component fails.  Therefore, the time to failure is $Y_n = \max(T_1, T_2, \ldots, T_n)$.  Using the results of Problem 5b, the cdf of $Y_n$ is 
+\begin{align}
+F_{Y_n}(x) &= \prod\limits_{i=1}^nF_{T_i}(x) \\
+&= \prod\limits_{i=1}^n[1-e^{-x/\theta_i}].
+\end{align}
+
+\noindent So the reliability of the system is 
+\begin{align}
+S(x) &= 1 - F_{Y_n}(x) \\
+&= 1-\prod\limits_{i=1}^n[1-e^{-x/\theta_i}].
+\end{align}
+
+\noindent Letting, $T=Y_n$, the mean failure time of the system is
+\begin{align}
+E[T] &= \int\limits_0^{\infty}tf_T(t) \hspace{1mm} dt \\
+&= \int\limits_0^{\infty}t\sum\limits_{i=1}^nf_{T_i}(t)\prod\limits_{\substack{1\leq j \leq n \\ j\neq i}}F_{T_j}(t) \hspace{1mm} dt \\
+&= \int\limits_0^{\infty}t\sum\limits_{i=1}^n\frac{1}{\theta_i}e^{-t/\theta_i}\prod\limits_{\substack{1\leq j \leq n \\ j\neq i}}[1-e^{-t/\theta_j}] \hspace{1mm} dt. 
+\end{align}
+
+\vspace{-2mm}
+\hfill$\blacksquare$
+
+\begin{center}
+\vspace{-0.4cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\vspace{7mm}
+
+%%
+%% PROBLEM 8
+%%
+\noindent\mybox{\textbf{Problem 8}} \hspace{3mm} Suppose $Y_1 < Y_2 < \ldots < Y_n$ are the order statistics from a random sample $X_1, X_2, \ldots, X_n$ taken from $U[\alpha, \beta]$ (i.e., a uniform distribution on the closed interval $[\alpha, \beta]$).  Calculate $P(a < R < b)$, where $R = Y_n - Y_1$ is the sample range.
+
+\vspace{7mm}
+
+\noindent\mybox{\textbf{Solution}}  We have already determined in class that the pdf of the range $R$ for a random sample from a uniform$[\alpha,\beta]$ distribution is
+$$
+f_R(r) = \frac{n(n-1)r^{n-2}(\beta-\alpha-r)}{(\beta-\alpha)^n},
+$$
+
+\noindent for $0\leq r \leq \beta - \alpha$.  Elsewhere, it is $0$.  Thus,
+\begin{align}
+P(a<R<b) &= \int\limits_a^b \frac{n(n-1)r^{n-2}(\beta-\alpha-r)}{(\beta-\alpha)^n} \hspace{1mm} dr \\
+&= \int\limits_a^b\frac{n(n-1)r^{n-2}(\beta-\alpha)}{(\beta-\alpha)^n} \hspace{1mm} dr - \int\limits_a^b\frac{n(n-1)r^{n-1}}{(\beta-\alpha)^n} \hspace{1mm} dr \\
+&= \left[\frac{nr^{n-1}}{(\beta-\alpha)^{n-1}}\right]^b_a - \left[ \frac{(n-1)r^n}{(\beta-\alpha)^n}\right]^b_a \\
+&= \frac{nb^{n-1}-na^{n-1}}{(\beta-\alpha)^{n-1}} - \frac{(n-1)b^n-(n-1)a^n}{(\beta-\alpha)^n}.
+\end{align}
+
+\vspace{-2mm}
+\hfill$\blacksquare$
+
+\end{document}
