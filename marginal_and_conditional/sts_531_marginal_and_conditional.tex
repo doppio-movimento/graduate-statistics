@@ -1,0 +1,269 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+
+\linespread{1.8}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{1pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+
+\title{STS 531:  Mathematical Statistics I \\
+	   \textbf{Homework IV}}
+\author{Nolan R. H. Gagnon}
+\begin{document}
+\maketitle
+
+\noindent\mybox{\textbf{4.4}}  A pdf is defined by 
+$$f(x,y) =
+\begin{cases}
+C(x+2y) \hspace{3mm} \text{ if } 0 < y < 1 \text{ and } 0 < x < 2 \\
+0 \hspace{18mm} \text{ otherwise.}
+\end{cases}
+$$
+
+\noindent\textbf{(a)}  Find the value of $C$. \\
+\textbf{(b)}  Find the marginal distribution of $X$. \\
+\textbf{(c)}  Find the joint cdf of $X$ and $Y$.  \\
+\textbf{(d)}  Find the pdf of the random variable $Z=9/(X+1)^2$. \\
+
+\vspace{3mm}
+
+\noindent\mybox{\textbf{Solution:}}  \textbf{(a)}  For $f$ to be a valid pdf, we must have  
+\begin{align}
+1 &= \int\limits_{0}^{1}\int\limits_{0}^{2} C(x+2y) \hspace{2mm} dxdy \\
+&= C\int\limits_{0}^{1} 2 + 4y \hspace{2mm} dy \\
+&= 4C.
+\end{align}
+
+\noindent Therefore, $C = \frac{1}{4}.$  
+
+\vspace{3mm}
+
+\noindent \textbf{(b)}  The pdf of the marginal distribution of $X$ is
+\begin{align}
+f_X(x) &= \int\limits_{0}^{1} \frac{1}{4}(x+2y) \hspace{2mm} dy \\
+&= \frac{1}{4}\left[xy + y^2\right]_0^1 \\
+&= \frac{1}{4}(x+1),
+\end{align}
+
+\noindent for $0< x < 2$.  
+
+\vspace{3mm}
+
+\noindent\textbf{(c)}  The joint cdf of $X$ and $Y$ is 
+\begin{align}
+F_{X,Y}(x,y) &= \int\limits_{0}^{y}\int\limits_{0}^{x} \frac{1}{4}(u+2v) \hspace{2mm} dudv \\
+&= \frac{1}{4}\int\limits_{0}^{y} \left[\frac{x^2}{2}+2xv\right] \hspace{2mm} dv \\
+&= \frac{1}{4} \left(\frac{x^2y}{2} + xy^2\right) \\
+&= \frac{x^2y}{8} + \frac{xy^2}{4}.
+\end{align}
+
+\vspace{3mm}
+
+\noindent\textbf{(d)}  If $Z=g(X)=9/(X+1)^2$, then $g^{-1}(Z) = \frac{3}{\sqrt{Z}} - 1.$  Using Theorem 2.1.5 of the textbook (pg. 51), the pdf of $Z$ is 
+\begin{align}
+f_Z(z) &= f_X(g^{-1}(z))\left| \frac{d}{dz} g^{-1}(z)\right| \\
+&= \frac{1}{4}\left(\frac{3}{\sqrt{z}}\right)\left(\frac{3}{2z^{\frac{3}{2}}}\right) \\
+&= \frac{9}{8}z^{-2},
+\end{align}
+
+\noindent for $1<z<9$.  Outside of this range, $f_Z(z)$ is $0$.  
+
+\pagebreak
+
+\noindent\mybox{\textbf{4.10}}  The random pair $(X,Y)$ has the distribution 
+
+\begin{center}
+\begin{tabular}{cc|ccc}
+& & & X & \\
+& & 1& 2& 3 \\
+\hline
+& 2 & $\frac{1}{12}$ & $\frac{1}{6}$ & $\frac{1}{12}$ \\
+$Y$ & 3 & $\frac{1}{6}$ & 0 & $\frac{1}{6}$ \\
+& 4 & 0 & $\frac{1}{3}$ & 0 
+\end{tabular}
+\end{center}
+
+\noindent\textbf{(a)}  Show that $X$ and $Y$ are dependent. \\
+\textbf{(b)}  Give a probability table for random variables $U$ and $V$ that have the same marginals as $X$ and $Y$ but are independent. 
+
+\vspace{3mm}
+
+\noindent\mybox{\textbf{Solution:}}  \textbf{(a)} Note that $P(X=1) = \frac{1}{12} + \frac{1}{6} = \frac{1}{4}$ and $P(Y=4) = \frac{1}{3}$.  Therefore, $P(X=1)P(Y=4) = \frac{1}{12}.$  However, $P(X=1, Y=4) = 0$.  Thus, $X$ and $Y$ are dependent.  
+
+\vspace{3mm}
+
+\noindent\textbf{(b)}  $U$ and $V$ will be independent and have the same marginals as $X$ and $Y$ if their probability table is 
+
+\begin{center}
+\begin{tabular}{cc|ccc}
+& & & U & \\
+& & 1& 2& 3 \\
+\hline
+& 2 & $\frac{1}{12}$ & $\frac{1}{6}$ & $\frac{1}{12}$ \\
+$V$ & 3 & $\frac{1}{12}$ & $\frac{1}{6}$ & $\frac{1}{12}$ \\
+& 4 & $\frac{1}{12}$ & $\frac{1}{6}$ & $\frac{1}{12}$
+\end{tabular}
+\end{center}
+
+\pagebreak
+
+\noindent\mybox{\textbf{4.15}}  Let $X\sim$ Poisson$(\theta)$, $Y \sim$ Poisson$(\lambda)$ be independent random variables.  It was shown in Theorem 4.3.2 that the distribution of $X+Y$ is Poisson$(\theta + \lambda)$.  Show that the distribution of $X|X+Y$ is binomial with success probability $\theta/(\theta + \lambda)$.  What is the distribution of $Y|X+Y$?
+
+\vspace{3mm}
+
+\noindent\mybox{\textbf{Solution:}}  Let $U=X+Y$ and $V=X$.  Then the pdf of $X|X+Y$, which is the same as the pdf of $V|U$, is
+
+\begin{align}
+f_{V|U}(v|u) &= \frac{f_{U,V}(u,v)}{f_U(u)}.
+\end{align}
+
+\noindent From Example 4.3.1 from the textbook, we know that $$f_{U,V}(u,v) = \frac{\lambda^{u-v}e^{-\lambda}}{(u-v)!}\frac{\theta^v e^{-\theta}}{v!}$$ and $$f_U(u) = \frac{e^{-(\theta + \lambda)}}{u!}(\theta + \lambda)^u.$$  Therefore, 
+\begin{align}
+f_{V|U}(v|u) &= \frac{f_{U,V}(u,v)}{f_U(u)} \\
+&= \left(\frac{u!}{(u-v)!v!}\right)\left(\frac{\lambda^{u-v}\theta^v}{(\theta + \lambda)^u}\right) \\
+&= {u \choose v} \left(\frac{\lambda}{\theta + \lambda}\right)^{u-v}\left(\frac{\lambda}{\theta+\lambda}\right)^v\left(\frac{\theta}{\lambda}\right)^v \\
+&= {u \choose v} \left(\frac{\lambda}{\theta + \lambda}\right)^{u-v}\left(\frac{\theta}{\theta + \lambda}\right)^v.
+\end{align}
+
+\noindent This is the pdf of a binomial random variable with $u$ trials and probability of success $\frac{\theta}{\theta + \lambda}$.  
+
+\vspace{3mm}
+
+\noindent The distribution of $Y|X+Y$ will be binomial with $u$ trials and probability of success $\frac{\lambda}{\theta + \lambda}$.  
+
+\pagebreak
+\noindent\mybox{\textbf{4.40}}  A generalization of the beta distribution is the Dirichlet distribution.  In its bivariate version, $(X,Y)$ have pdf $$f(x,y) = Cx^{a - 1}y^{b - 1}(1-x-y)^{c-1}, \hspace{2mm} 0<x<1, \hspace{2mm} 0<y<1, \hspace{2mm} 0 < y < 1 - x< 1,$$ where $a>0$, $b>0$, and $c>0$ are constants.  
+
+\noindent \textbf{(a)}  Show that $C = \frac{\Gamma(a+b+c)}{\Gamma(a)\Gamma(b)\Gamma(c)}$.  \\
+\textbf{(b)}  Show that, marginally, both $X$ and $Y$ are beta \\
+\textbf{(c)}  Find the conditional distribution of $Y|X=x$, and show that $Y/(1-x)$ is beta$(b,c)$.  \\
+\textbf{(d)}  Show that $E(XY) = \frac{ab}{(a+b+c+1)(a+b+c)}$, and find their covariance.  
+
+\vspace{3mm}
+
+\noindent\mybox{\textbf{Solution:}}  \textbf{(a)}  For $f$ to be a valid pdf, we must have
+
+\begin{align}
+1 = C\int\limits_0^1\int\limits_0^{1-y}x^{a-1}y^{b-1}(1-x-y)^{c-1}\hspace{2mm}dxdy.
+\end{align}
+
+\noindent Let $t=\frac{x}{1-y}$.  Then $dt = \frac{1}{1-y}dx$, so $dx = (1-y)dt$.  We now have 
+\begin{align}
+1 &= C\int\limits_0^1\int\limits_0^1 [t(1-y)]^{a-1}y^{b-1}(1-t(1-y)-y)^{c-1}(1-y) \hspace{2mm} dtdy \\
+&= C\int\limits_0^1\int\limits_0^1 t^{a-1}(1-y)^{a-1}y^{b-1}(1-t-ty-y)^{c-1}(1-y) \hspace{2mm} dtdy \\
+&= C\int\limits_0^1\int\limits_0^1 t^{a-1}(1-y)^{a-1}y^{b-1}[(1-y)(1-t)]^{c-1}(1-y) \hspace{2mm} dtdy \\
+&= C\int\limits_0^1\left[\int\limits_0^1t^{a-1}(1-t)^{c-1} \hspace{2mm} dt\right] y^{b-1}(1-y)^{a+c-1} \hspace{2mm} dy \\
+&= C \beta(a,c) \beta(b, a+c).
+\end{align}
+
+\noindent Therefore, 
+\begin{align}
+C &= \frac{1}{\beta(a,c)\beta(b,a+c)} = \frac{\Gamma(a+b+c)\Gamma(a+c)}{\Gamma(a+c)\Gamma(a)\Gamma(b)\Gamma(c)} = \frac{\Gamma(a+b+c)}{\Gamma(a)\Gamma(b)\Gamma(c)}
+\end{align}
+
+\vspace{3mm}
+
+\noindent\textbf{(b)}  The marginal distribution of $X$ is
+\begin{align}
+f_X(x) &= \frac{\Gamma(a+b+c)}{\Gamma(a)\Gamma(b)\Gamma(c)}\int\limits_0^{1-x}x^{a-1}y^{b-1}(1-x-y)^{c-1} \hspace{2mm} dy.
+\end{align}
+
+\noindent Let $t = \frac{y}{1-x}$.  Then $dt = \frac{dy}{1-x}$, so $dy = (1-x)dt$.  Using this substitution, we have
+
+\pagebreak
+
+\begin{align}
+f_X(x) &= \frac{\Gamma(a+b+c)}{\Gamma(a)\Gamma(b)\Gamma(c)} \int\limits_0^1x^{a-1}t^{b-1}(1-x)^{b-1}(1-x-t(1-x))^{c-1}(1-x) \hspace{2mm} dt \\
+&= \frac{\Gamma(a+b+c)}{\Gamma(a)\Gamma(b)\Gamma(c)} \int\limits_0^1x^{a-1}t^{b-1}(1-x)^{b}(1-x)^{c-1}(1-t)^{c-1} \hspace{2mm} dt \\
+&= \frac{\Gamma(a+b+c)}{\Gamma(a)\Gamma(b)\Gamma(c)} \left[ \int\limits_0^1t^{b-1}(1-t)^{c-1} \hspace{2mm} dt\right] x^{a-1}(1-x)^{b+c-1}  \\
+&= \left(\frac{\Gamma(a+b+c)}{\Gamma(a)\Gamma(b)\Gamma(c)}\right)\left(\frac{\Gamma(b)\Gamma(c)}{\Gamma(b+c)}\right)x^{a-1}(1-x)^{b+c-1} \\
+&= \frac{\Gamma(a+b+c)}{\Gamma(a)\Gamma(b+c)}x^{a-1}(1-x)^{b+c-1} \\
+&= \beta(a,b+c)x^{a-1}(1-x)^{b+c-1}
+\end{align}
+
+\noindent for $0<x<1$.  This is a Beta Distribution with parameters $a$ and $b+c$.  By symmetry, the marginal distribution of $Y$ will be Beta with parameters $b$ and $a+c$.  
+
+\vspace{3mm}
+
+\noindent \textbf{(c)}  The conditional distribution of $Y|X=x$ has pdf
+
+\begin{align}
+f_{Y|X}(y|x) &= \frac{f_{X,Y}(x,y)}{f_X(x)} \\
+&= \frac{\Gamma(b+c)}{\Gamma(b)\Gamma(c)} \frac{x^{a-1}y^{b-1}(1-x-y)^{c-1}}{x^{a-1}(1-x)^{b+c-1}} \\
+&= \frac{\Gamma(b+c)}{\Gamma(b)\Gamma(c)}\frac{y^{b-1}(1-x-y)^{c-1}}{(1-x)^{b+c-1}}.
+\end{align}
+
+\noindent Let $Z=g(Y)=\frac{Y}{1-x}$.  Then $g^{-1}(Z) = Z(1-x)$.  Using Theorem 2.1.5, the pdf of $Z$ is
+
+\begin{align}
+f_Z(z) &= f_{Y|X}(g^{-1}(z))\left|\frac{d}{dz}g^{-1}(z)\right| \\
+&= \frac{\Gamma(b+c)}{\Gamma(b)\Gamma(c)}\frac{[z(1-x)]^{b-1}(1-x-z(1-x))^{c-1}}{(1-x)^{b+c-1}}(1-x) \\
+&= \frac{\Gamma(b+c)}{\Gamma(b)\Gamma(c)}\frac{z^{b-1}(1-x)^{b}([1-x][1-z])^{c-1}}{(1-x)^{b+c-1}} \\
+&= \frac{\Gamma(b+c)}{\Gamma(b)\Gamma(c)}\frac{z^{b-1}(1-x)^{b+c-1}(1-z)^{c-1}}{(1-x)^{b+c-1}} \\
+&= \frac{\Gamma(b+c)}{\Gamma(b)\Gamma(c)}z^{b-1}(1-z)^{c-1}
+\end{align}
+
+\noindent for $0<z<1$.  Thus, $Y/(1-x)$ is beta$(b,c)$. 
+
+\vspace{3mm}
+
+\noindent \textbf{(d)}  We can use the result of part \textbf{(a)} to solve this.  The expected value of $XY$ is
+\begin{align}
+E[XY] &= C\int\limits_0^{1}\int\limits_0^{1-y}x^{(a+1)-1}y^{(b+1)-1}(1-x-y)^{c-1} \hspace{2mm}dxdy \\
+&= C\beta(a+1,c)\beta(b+1,a+1+c) \\
+&= \frac{\Gamma(a+b+c)}{\Gamma(a)\Gamma(b)\Gamma(c)}\frac{\Gamma(a+1)\Gamma(c)\Gamma(b+1)\Gamma(a+1+c)}{\Gamma(a+1+c)\Gamma(a+b+c+2)} \\
+&=\frac{\Gamma(a+b+c)ab}{\Gamma(a+b+c+2)} \\
+&= \frac{\Gamma(a+b+c)ab}{(a+b+c+1)(a+b+c)\Gamma(a+b+c)} \\
+&= \frac{ab}{(a+b+c+1)(a+b+c)}
+\end{align}
+
+\noindent The covariance of $X$ and $Y$ is
+\begin{align}
+Cov(X,Y) &= E[XY]-E[X]E[Y] \\
+&= \frac{ab}{(a+b+c+1)(a+b+c)} - \frac{ab}{(a+b+c)(a+b+c)} \\
+&= \frac{ab(a+b+c)-ab(a+b+c+1)}{(a+b+c+1)(a+b+c)^2} \\
+&= \frac{-ab}{(a+b+c+1)(a+b+c)^2}.
+\end{align}
+\pagebreak
+
+\noindent\mybox{\textbf{4.42}}  Let $X$ and $Y$ be independent random variables with means $\mu_X$, $\mu_Y$, and variances $\sigma_X^2$, $\sigma_Y^2$.  Find an expression for the correlation of $XY$ and $Y$ in terms of these means and variances. 
+
+\vspace{3mm}
+
+\noindent\mybox{\textbf{Solution:}}  The correlation of $XY$ and $Y$ is $$\rho_{XY,Y} = \frac{\text{Cov}(XY,Y)}{\sigma_{XY}\sigma_Y}.$$  First, we simplify the top of this fraction.  Since $X$ and $Y$ are independent, we have  
+
+\begin{align}
+\text{Cov}(XY, Y) &= E[XY^2] - E[XY]E[Y] \\
+&= E[X]E[Y^2]-E[X]E^2[Y] \\
+&= E[X]\text{Var}(Y) \\
+&= \mu_X\sigma^2_Y.
+\end{align}
+
+\noindent As for $\sigma_{XY}$, we have
+\begin{align}
+\sigma_{XY} &=\sqrt{E[(XY)^2]-E^2[XY]} \\ 
+&= \sqrt{E[X^2]E[Y^2]-(\mu_X\mu_Y)^2}.
+\end{align}
+
+\noindent Using the variance formula, we can write $$E[X^2] = (\sigma^2_X + \mu_X^2).$$  Similarly for $E[Y^2]$.  Therefore,
+\begin{align}
+\sigma_{XY} &= \sqrt{E[X^2]E[Y^2]-(\mu_X\mu_Y)^2} \\
+&= \sqrt{(\sigma^2_X + \mu_X^2)(\sigma^2_Y + \mu_Y^2)-(\mu_X\mu_Y)^2} \\
+&= \sqrt{\sigma^2_X\sigma^2_Y+\sigma^2_X\mu^2_Y+\sigma^2_Y\mu^2_X}.
+\end{align}
+
+\noindent Thus, $$\rho_{XY,Y} = \frac{\mu_X\sigma_Y}{\sqrt{\sigma^2_X\sigma^2_Y+\sigma^2_X\mu^2_Y+\sigma^2_Y\mu^2_X}}.$$
+
+\end{document}
