@@ -1,0 +1,436 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{1.5}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{STS 532 HW V}
+\begin{document}
+
+%%
+%% Title 
+%%
+\begin{center}
+\vspace{-0.6cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+
+\vspace{-0.5cm}
+\begin{flushleft}
+\noindent\textbox{\pgfornament[width = 9mm, color = black]{39}\hfill}\textbox{\hfil \textbf{\begin{large}Mathematical Statistics \end{large}}\hfil}\textbox{\hfill \pgfornament[width = 9mm, color = black]{40}}
+\end{flushleft}
+\vspace{-5mm}
+\begin{large}
+\textbf{Homework V} \\
+\end{large}
+
+\vspace{5mm}
+
+\begin{flushleft}
+\noindent\textbox{\pgfornament[width = 9mm, color = black, symmetry = h]{39}\hfill}\textbox{\hfil \textbf{\begin{large}Nolan R. H. Gagnon\end{large}}\hfill}\textbox{\hfill \pgfornament[width = 9mm, color = black, symmetry = h]{40}}
+\end{flushleft}
+
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\begin{center}
+\pgfornament[width = 75mm,
+             color = black]{89}
+\end{center}
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Casella and Berger 11.32}}}\hspace{3mm}\hrulefill 
+
+\noindent Observations $(x_i, Y_i), i = 1, 2, \ldots, n$, are made according to the model $$Y_i = \alpha + \beta x_i + \epsilon_i,$$ where $x_1, x_2, \ldots, x_n$ are fixed constants and $\epsilon_1, \epsilon_2, \ldots, \epsilon_n$ are iid $n(0, \sigma^2)$. The model is then reparameterized as $$Y_i = \alpha^{\prime} + \beta^{\prime}(x_i-\bar{x})+\epsilon_i.$$ Let $\hat{\alpha}$ and $\hat{\beta}$ denote the MLEs of $\alpha$ and $\beta$, respectively, and $\hat{\alpha}^{\prime}$ and $\hat{\beta}^{\prime}$ denote the MLEs of $\alpha^{\prime}$ and $\beta^{\prime}$, respectively.
+\begin{flushleft}
+\textbf{(a)} Show that $\hat{\beta}^{\prime} = \hat{\beta}.$ \\
+\textbf{(b)} Show that $\hat{\alpha}^{\prime} \neq \hat{\alpha}$. In fact, show that $\hat{\alpha}^{\prime} = \bar{Y}$. Find the distribution of $\hat{\alpha}^{\prime}.$ \\
+\textbf{(c)} Show that $\hat{\alpha}^{\prime}$ and $\hat{\beta}^{\prime}$ are uncorrelated and, hence, independent under normality.
+\end{flushleft}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Solution}}} \hspace{3mm}\hrulefill
+
+\noindent \textcolor{blue}{\textbf{(a)}} Under the first parameterization of the model, $Y_i \sim n(\alpha + \beta x_i, \sigma^2)$. Thus, the log-likelihood function for the observations is
+\begin{align}
+\mathscr{L}_1 &= n\log\left(\frac{1}{\sqrt{2\pi}\sigma}\right) - \frac{1}{2\sigma^2}\sum(y_i - \alpha - \beta x_i)^2.
+\end{align}
+The solution of the equation 
+\begin{align}
+\frac{\partial \mathscr{L}_1}{\partial \beta} &= \frac{1}{\sigma^2}\sum (y_i - \alpha - \beta x_i)x_i \\
+&= 0
+\end{align}
+is 
+\begin{align}
+\hat{\beta} &= \frac{\sum (y_i - \hat{\alpha})x_i}{\sum x_i^2}.
+\end{align}
+We can solve for $\hat{\alpha}$ (the MLE of $\alpha$) in order to write $\hat{\beta}$ (the MLE of $\beta$) in terms of only the $x_i$ and $y_i$. The solution to 
+\begin{align}
+\frac{\partial \mathscr{L}_1}{\partial \alpha} &= \frac{1}{\sigma^2}\sum(y_i - \alpha - \beta x_i) \\
+&= 0
+\end{align}
+is $\hat{\alpha} =\bar{y} - \hat{\beta}\bar{x}.$ So we can write
+\begin{align}
+\hat{\beta} &= \frac{\sum(y_i - \bar{y} + \hat{\beta}\bar{x})x_i}{\sum (x_i-\bar{x})x_i}
+\end{align}
+Solving the above equation for $\hat{\beta}$ yields 
+\begin{align}
+\hat{\beta} &= \frac{\sum(y_i-\bar{y})x_i}{\sum(x_i-\bar{x})x_i} \\
+&= \frac{\sum(y_i-\bar{y})(x_i -\bar{x} + \bar{x})}{\sum (x_i-\bar{x})(x_i - \bar{x} + \bar{x})} \\
+&= \frac{\sum(y_i-\bar{y})(x_i - \bar{x}) + \bar{x}\sum(y_i-\bar{y})}{\sum(x_i - \bar{x})^2 + \bar{x}\sum(x_i-\bar{x})} \\
+\end{align}
+Since the sum of deviations from the mean is $0$, we have 
+\begin{align}
+\hat{\beta} &= \frac{\sum(y_i-\bar{y})(x_i - \bar{x})}{\sum(x_i - \bar{x})^2} \\
+&= \frac{S_{xy}}{S_{xx}}.
+\end{align}
+
+Now, under the second parameterization of the model, $Y_i \sim n(\alpha^{\prime} + \beta^{\prime}(x_i-\bar{x}), \sigma^2)$, so the log-likelihood function in this case is 
+\begin{align}
+\mathscr{L}_2 &= n\log\left(\frac{1}{\sqrt{2\pi}\sigma}\right) - \frac{1}{2\sigma^2}\sum[y_i - \alpha^{\prime} - \beta^{\prime} (x_i - \bar{x})]^2.
+\end{align}
+The solution of the equation 
+\begin{align}
+\frac{\partial \mathscr{L}_2}{\partial \beta^{\prime}} &= \frac{1}{\sigma^2}\sum [y_i - \alpha^{\prime} - \beta^{\prime} (x_i-\bar{x})](x_i-\bar{x}) \\
+&= \frac{1}{\sigma^2}\left[\sum y_i(x_i - \bar{x}) - \alpha^{\prime}\sum(x_i - \bar{x}) - \beta^{\prime}\sum(x_i-\bar{x})^2\right] \\
+&= \frac{1}{\sigma^2}\left[\sum y_i(x_i - \bar{x}) - \beta^{\prime}\sum(x_i-\bar{x})^2\right] \\
+&= 0
+\end{align}
+is 
+\begin{align}
+\hat{\beta^{\prime}} &= \frac{\sum y_i(x_i - \bar{x})}{\sum (x_i-\bar{x})^2} \\
+&= \frac{\sum (y_i - \bar{y} + \bar{y})(x_i - \bar{x})}{\sum (x_i-\bar{x})^2} \\
+&= \frac{\sum (y_i-\bar{y})(x_i-\bar{x})+\bar{y}\sum(x_i-\bar{x})}{\sum (x_i-\bar{x})^2}.
+\end{align}
+Since the sum of deviations from the mean is $0$, we have 
+\begin{align}
+\hat{\beta^{\prime}} &= \frac{\sum (y_i-\bar{y})(x_i-\bar{x})}{\sum (x_i-\bar{x})^2} \\
+&= \frac{S_{xy}}{S_{xx}}.
+\end{align}
+Therefore, $\hat{\beta} = \hat{\beta^{\prime}}.$ 
+
+\vspace{3mm}
+
+\noindent\textcolor{blue}{\textbf{(b)}} In part \textbf{(a)}, we found that $\hat{\alpha} = \bar{y} - \hat{\beta}\bar{x}.$ What remains is to show that $\hat{\alpha^{\prime}} = \bar{y}$.  Using $\mathscr{L}_2$ as defined in part \textbf{(a)}, we can find $\hat{\alpha^{\prime}}$ by solving 
+\begin{align}
+\frac{\partial \mathscr{L}_2}{\partial \alpha^{\prime}} &= \frac{1}{\sigma^2}\sum[y_i - \alpha^{\prime} - \beta^{\prime}(x_i - \bar{x})] \\
+&= \frac{1}{\sigma^2}\sum(y_i - \alpha^{\prime}) - \frac{\beta^{\prime}}{\sigma^2} \sum (x_i - \bar{x}) \\
+&= \frac{1}{\sigma^2}\sum y_i - \frac{n\alpha^{\prime}}{\sigma^2} \\
+&= 0
+\end{align}
+for $\alpha^{\prime}$. The solution of this equation is clearly
+\begin{align}
+\hat{\alpha^{\prime}} &= \frac{1}{n}\sum y_i \\
+&= \bar{y}.
+\end{align}
+Thus, $\hat{\alpha} \neq \hat{\alpha^{\prime}}$. 
+
+Now, since the $Y_i \sim n(\alpha^{\prime} + \beta^{\prime}(x_i-\bar{x}), \sigma^2)$, we have 
+\begin{align}
+\bar{Y} &\sim n\left( \frac{1}{n} \sum \alpha^{\prime} + \frac{\beta^{\prime}}{n}\sum(x_i - \bar{x}), \frac{\sigma^2}{n} \right).
+\end{align}
+But $\frac{1}{n}\sum \alpha^{\prime} = \alpha^{\prime}$ and $\frac{\beta^{\prime}}{n}\sum(x_i - \bar{x}) = 0$. Thus,
+\begin{align}
+\bar{Y} &\sim n\left(\alpha^{\prime}, \frac{\sigma^2}{n}\right).
+\end{align}
+
+\noindent \textcolor{blue}{\textbf{(c)}} By Theorem 11.3.3 (Casella and Berger $\S$ 11.3), the covariance of $\hat{\alpha^{\prime}}$ and $\hat{\beta^{\prime}}$ is
+\begin{align}
+\text{Cov}\left(\hat{\alpha^{\prime}}, \hat{\beta^{\prime}} \right) &= \left(\frac{-\sigma^2}{S_{xx}}\right)\frac{1}{n}\sum(x_i - \bar{x}) \\
+&= 0.
+\end{align}
+Since the covariance of $\hat{\alpha^{\prime}}$ and $\hat{\beta^{\prime}}$ is $0$, their correlation is also $0$.
+
+\hfill$\blacksquare$
+
+
+\vfill
+\begin{center}
+\pgfornament[width = 75mm,
+             color = black]{89}
+\end{center}
+\begin{center}
+\vspace{-0.6cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Casella and Berger 11.33}}}\hspace{3mm}\hrulefill 
+
+\noindent Observations $(X_i, Y_i)$, $i = 1, 2, \ldots, n$, are made from a bivariate normal population with parameters $(\mu_X, \mu_Y, \sigma_X^2, \sigma_Y^2, \rho)$, and the model $Y_i = \alpha + \beta x_i + \epsilon_i$ is going to be fit.
+\begin{flushleft}
+\textbf{(a)} Argue that the hypothesis $H_0: \beta = 0$ is true if and only if the hypothesis $H_0: \rho = 0$ is true. \\
+\textbf{(b)} Show algebraically that 
+$$
+\frac{\hat{\beta}}{S/\sqrt{S_{xx}}} = \sqrt{n-2}\frac{r}{\sqrt{1-r^2}}, 
+$$
+where $r$ is the sample correlation coefficient, the MLE of $\rho$.\\
+\textbf{(c)} Show how to test $H_0: \rho = 0$, given only $r^2$ and $n$, using Student's $t$ with $n-2$ degrees of freedom
+\end{flushleft}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Solution}}} \hspace{3mm}\hrulefill
+
+\noindent \textcolor{blue}{\textbf{(a)}} Under the bivariate normal model, $\beta = \rho \frac{\sigma_Y}{\sigma_X}$ (Casella and Berger $\S$ 11.3). Assuming $\sigma_Y \neq 0$, it is clear that if $\beta = 0$, so does $\rho$, and vice-versa.
+
+\vspace{3mm}
+
+\noindent \textcolor{blue}{\textbf{(b)}} We begin with the facts that $\hat{\beta} = \frac{S_{xy}}{S_{xx}}$ and $r = \frac{S_{xy}}{\sqrt{S_{xx}}\sqrt{S_{yy}}}.$  We can write
+\begin{align}
+\hat{\beta} &= \frac{S_{xy}}{S_{xx}} \\
+&= \frac{S_{xy}\sqrt{S_{yy}}}{\sqrt{S_{xx}}\sqrt{S_{xx}}\sqrt{S_{yy}}} \\
+&= r \sqrt{\frac{S_{yy}}{S_{xx}}}.
+\end{align}
+Therefore,
+\begin{align}
+\frac{\hat{\beta}}{1/\sqrt{S_{xx}}} &= \hat{\beta}\sqrt{S_{xx}} \\
+&= r\sqrt{S_{yy}}.
+\end{align}
+Note that we can write 
+$$
+S = \frac{\sqrt{S_{yy} - \hat{\beta}S_{xy}}}{\sqrt{n-2}}.
+$$
+Thus,
+\begin{align}
+\frac{\hat{\beta}}{S/\sqrt{S_{xx}}} &= r\frac{\sqrt{S_{yy}}}{S} \\
+&= r \frac{\sqrt{S_{yy}}}{\sqrt{S_{yy}-\hat{\beta}S_{xy}}}\sqrt{n-2} \\
+&= \sqrt{n-2}\frac{r}{\sqrt{1 - \hat{\beta}\frac{S_{xy}}{S_{yy}}}} \\
+&= \sqrt{n-2}\frac{r}{\sqrt{1-\frac{S_{xy}^2}{S_{xx}S_{yy}}}} \\
+&= \sqrt{n-2}\frac{r}{\sqrt{1-r^2}}.
+\end{align}
+
+\vspace{3mm}
+
+\noindent \textcolor{blue}{\textbf{(c)}} From part \textbf{(a)}, we know that testing $H_0: \rho = 0$ is equivalent to testing $H_0^{\prime}: \beta = 0$. From Casella and Berger $\S$ 11.3, we know that we reject $H_0^{\prime}: \beta = 0$ at significant level $\alpha$ if $$\left|\frac{\hat{\beta}-0}{S/\sqrt{S_{xx}}}\right| > t_{n-2, \alpha/2}.$$ But from part \textbf{(b)}, we know that $\hat{\beta} = \sqrt{n-2}\frac{r}{\sqrt{1-r^2}}\frac{S}{\sqrt{S_{xx}}}$. Thus, we can reject $H_0^{\prime}$ whenever
+\begin{align}
+\left|\frac{\hat{\beta} - 0}{S/\sqrt{S_{xx}}}\right| &= \left|\frac{\sqrt{n-2}\frac{r}{\sqrt{1-r^2}}\frac{S}{\sqrt{S_{xx}}}}{S/\sqrt{S_{xx}}}\right| \\
+&= \left|\sqrt{n-2}\frac{r}{\sqrt{1-r^2}}\right| \\
+&> t_{n-2, \alpha/2}.
+\end{align}
+But rejecting $H_0^{\prime}$ is equivalent to rejecting $H_0$. Therefore, we reject $H_0: \rho = 0$ whenever 
+$$
+\left|\sqrt{n-2}\frac{r}{\sqrt{1-r^2}}\right| > t_{n-2, \alpha/2}.
+$$
+
+\hfill$\blacksquare$
+
+
+\vfill
+\begin{center}
+\pgfornament[width = 75mm,
+             color = black]{89}
+\end{center}
+\begin{center}
+\vspace{-0.6cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Casella and Berger 11.35}}}\hspace{3mm}\hrulefill 
+
+\noindent Observations $Y_1, Y_2, \ldots, Y_n$ are described by the relationship $Y_i = \theta x_i^2 + \epsilon_i$, where $x_1, x_2, \ldots, x_n$ are fixed constants and $\epsilon_1, \epsilon_2, \ldots, \epsilon_n$ are iid $n(0, \sigma^2)$.
+\begin{flushleft}
+\textbf{(a)} Find the least squares estimator of $\theta$. \\
+\textbf{(b)} Find the MLE of $\theta$. \\
+\textbf{(c)} Find the best unbiased estimator of $\theta$.
+\end{flushleft}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Solution}}} \hspace{3mm}\hrulefill
+
+\noindent \textcolor{blue}{\textbf{(a)}} To find the least squares estimator of $\theta$, we need to minimize the residual sum of squares 
+\begin{align}
+\text{RSS} &= \sum (y_i - \theta x_i^2)^2.
+\end{align}
+We do this by solving the equation 
+\begin{align}
+\frac{d}{d\theta}\left(\text{RSS}\right) &= 2\sum (y_i - \theta x_i^2)x_i^2 \\
+&= 2\sum y_ix_i^2 - 2\theta\sum x_i^4 \\
+&=0
+\end{align}
+for $\theta$. It is easy to see that the solution is $$\tilde{\theta} = \frac{\sum y_ix_i^2}{\sum x_i^4},$$ which is the least squares estimator of $\theta$.
+
+\vspace{3mm}
+
+\noindent \textcolor{blue}{\textbf{(b)}} The distribution of each $Y_i$ is $n(\theta x_i^2, \sigma^2)$, so the likelihood function for the observations is
+\begin{align}
+L(\theta|\textbf{y}) &= \prod \frac{1}{\sqrt{2\pi}\sigma}\exp\left\lbrace -\frac{1}{2\sigma^2}(y_i - \theta x_i^2)^2\right\rbrace \\
+&= \left(\frac{1}{\sqrt{2\pi}\sigma}\right)^n\exp\left\lbrace -\frac{1}{2\sigma^2}\sum(y_i - \theta x_i^2)^2\right\rbrace.
+\end{align}
+The log-likelihood function is 
+\begin{align}
+\mathscr{L}(\theta|\textbf{y}) = n\log\left(\frac{1}{\sqrt{2\pi}\sigma}\right) - \frac{1}{2\sigma^2}\sum (y_i-\theta x_i^2)^2.
+\end{align}
+The solution of
+\begin{align}
+\frac{d}{d\theta}\mathscr{L}(\theta | \textbf{y}) &= -\frac{1}{\sigma^2}\sum(y_i-\theta x_i^2)x_i^2 \\
+&= 0
+\end{align}
+is $$\hat{\theta} = \frac{\sum y_i x_i^2}{\sum x_i^4},$$ which is the MLE of $\theta$. 
+
+\vspace{3mm}
+
+\noindent \textcolor{blue}{\textbf{(c)}} The variance of $\hat{\theta}$ is
+\begin{align}
+\text{Var}\left(\hat{\theta}\right) &= \frac{\sigma^2}{\left[\sum x_i^4\right]^2}\sum x_i^4 \\
+&= \frac{\sigma^2}{\sum x_i^4}. 
+\end{align}
+Let $\tau(\theta) = \theta$. The Cr\'{a}mer-Rao Lower Bound for variances of estimators of $\theta$ is 
+\begin{align}
+\text{CRLB} &= \frac{\left(\frac{\partial}{\partial\theta}\tau(\theta)\right)^2}{-E\left[\frac{\partial^2}{\partial\theta^2}\mathscr{L}(\theta|\textbf{y})\right]} \\
+&= \frac{1}{-E\left[\frac{\partial^2}{\partial\theta^2}\mathscr{L}(\theta|\textbf{y})\right]},
+\end{align}
+where
+\begin{align}
+\mathscr{L}(\theta|\textbf{y}) &= n\log\left(\frac{1}{\sqrt{2\pi}\sigma}\right) - \frac{1}{2\sigma^2}\sum(y_i - \theta x_i^2).
+\end{align}
+We have 
+\begin{align}
+\frac{\partial \mathscr{L}}{\partial \theta} &= \frac{1}{\sigma^2}\sum (y_i - \theta x_i^2)x_i^2 \\
+&= \frac{1}{\sigma^2}\sum y_i x_i^2 - \frac{\theta}{\sigma^2}\sum x_i^4.
+\end{align}
+Therefore,
+\begin{align}
+\frac{\partial^2 \mathscr{L}}{\partial \theta^2} &= -\frac{1}{\sigma^2}\sum x_i^4.
+\end{align}
+So $-E\left[\frac{\partial^2 \mathscr{L}}{\partial \theta^2}\right] = \frac{1}{\sigma^2}\sum x_i^4$, and 
+\begin{align}
+\text{CRLB} &= \frac{1}{\frac{1}{\sigma^2}\sum x_i^4} \\
+&= \frac{\sigma^2}{\sum x_i^4} \\
+&= \text{Var}\left(\hat{\theta}\right).
+\end{align}
+Thus, $\hat{\theta} = \tilde{\theta}$ is the best unbiased estimator of $\theta$. 
+
+\hfill$\blacksquare$
+
+\vfill
+\begin{center}
+\pgfornament[width = 75mm,
+             color = black]{89}
+\end{center}
+\begin{center}
+\vspace{-0.6cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Casella and Berger 11.36}}}\hspace{3mm}\hrulefill 
+
+\noindent Observations $Y_1, Y_2, \ldots, Y_n$ are made according to the model $Y_i = \alpha +\beta x_i + \epsilon_i$, where $x_1, x_2, \ldots, x_n$ are fixed constants and $\epsilon_1, \epsilon_2, \ldots, \epsilon_n$ are iid $n(0, \sigma^2)$. Let $\hat{\alpha}$ and $\hat{\beta}$ denote MLEs of $\alpha$ and $\beta$.
+\begin{flushleft}
+\textbf{(a)} Assume that $x_1, x_2, \ldots, x_n$ are observed values of iid random variables $X_1, X_2, \ldots, X_n$ with distribution $n(\mu_X, \sigma_X^2)$. Prove that when we take expectations over the joint distribution of $X$ and $Y$, we still get $E\left[\hat{\alpha}\right] = \alpha$ and $E\left[\hat{\beta}\right] = \beta$. \\
+\textbf{(b)} The phenomenon of part \textbf{(a)} does not carry over to the covariance. Calculate the unconditional covariance of $\hat{\alpha}$ and $\hat{\beta}$ (using the joint distribution of $X$ and $Y$). 
+\end{flushleft}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Solution}}} \hspace{3mm}\hrulefill
+
+\noindent \textcolor{blue}{\textbf{(a)}} By the Law of Iterated Expectations, we can write
+\begin{align}
+E\left[\hat{\beta}\right] & = E\left[E\left[\hat{\beta}|\textbf{X}\right]\right].
+\end{align}
+In the case where we are given $\bar{X}$, we know that $\hat{\beta}$ is an unbiased estimator of $\beta$. Therefore, $E\left[\hat{\beta}|\bar{X}\right] = \beta.$ Thus, 
+\begin{align}
+E\left[\hat{\beta}\right] &= E\left[\beta\right] \\
+&= \beta.
+\end{align}
+Using the Law of Iterated Expectations and the fact that $\hat{\alpha} = \bar{Y} - \hat{\beta}\bar{X}$, we have
+\begin{align}
+E\left[\hat{\alpha}\right] &= E\left[\bar{Y} - \hat{\beta} \bar{X}\right] \\
+&= E\left[E\left[\bar{Y} - \hat{\beta}\bar{X} | \textbf{X}\right]\right] \\
+&= E\left[E\left[\bar{Y}|\textbf{X}\right] - E\left[\hat{\beta}\bar{X}|\textbf{X}\right]\right] \\
+&= E\left[E\left[\bar{Y}|\textbf{X}\right] - \beta\bar{X}\right]
+\end{align}
+The conditional distribution of $\bar{Y}$ given $\bar{X}$ is $n(\alpha + \beta\bar{x}, \sigma^2)$. Thus, $E\left[\bar{Y}|\bar{X}\right] = \alpha + \beta\bar{x}$. So
+\begin{align}
+E\left[\hat{\alpha}\right] &= E\left[E\left[\bar{Y}|\textbf{X}\right] - \beta\bar{X}\right] \\
+&= E\left[\alpha + \beta\bar{X} - \beta\bar{X}\right] \\
+&= E[\alpha] \\
+&= \alpha.
+\end{align}
+
+\vspace{3mm}
+
+\noindent \textcolor{blue}{\textbf{(b)}} Using the Law of Iterated Covariances, we have
+\begin{align}
+\text{Cov}\left(\hat{\alpha}, \hat{\beta}\right) &= E\left[\text{Cov}\left(\hat{\alpha}, \hat{\beta}|\textbf{X}\right)\right] + \text{Cov}\left[E\left(\hat{\alpha}|\textbf{X}\right), E\left(\hat{\beta}|\textbf{X}\right)\right].
+\end{align}
+We know that $E\left(\hat{\alpha}| \textbf{X}\right) = \alpha$ and $E\left(\hat{\beta}|\textbf{X}\right) = \beta$. We also know that $\text{Cov}\left(\hat{\alpha}, \hat{\beta} |\textbf{X}\right) = \frac{-\sigma^2\bar{x}}{S_{xx}}$, by Theorem 11.3.3 (Casella and Berger $\S$ 11.3). Thus,
+\begin{align}
+\text{Cov}\left(\hat{\alpha}, \hat{\beta}\right) &= E\left[\text{Cov}\left(\hat{\alpha}, \hat{\beta}|\textbf{X}\right)\right] + \text{Cov}\left[E\left(\hat{\alpha}|\textbf{X}\right), E\left(\hat{\beta}|\textbf{X}\right)\right] \\
+&= E\left[\frac{-\sigma^2\bar{X}}{S_{XX}}\right] + \text{Cov}\left(\alpha, \beta\right) \\
+&= -\sigma^2E\left[\frac{\bar{X}}{S_{XX}}\right] + 0 \\
+&= -\sigma^2E\left[\frac{\bar{X}}{S_{XX}}\right].  
+\end{align}
+
+\hfill$\blacksquare$
+
+\vfill
+\begin{center}
+\pgfornament[width = 75mm,
+             color = black]{89}
+\end{center}
+\begin{center}
+\vspace{-0.6cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\end{document}
