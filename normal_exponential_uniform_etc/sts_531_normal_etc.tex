@@ -1,0 +1,178 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+
+\linespread{1.8}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{1pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+
+\title{STS 531:  Mathematical Statistics I \\
+	   \textbf{Homework VI}}
+\author{Nolan R. H. Gagnon}
+\begin{document}
+\maketitle
+\noindent\mybox{\textbf{Problem 1:}}  Suppose $(X_1, X_2)$ are uniform on the triangle $0\leq x_1 \leq x_2 \leq 1$.  The joint density function of $(X_1, X_2)$ is 
+$$
+f(x_1,x_2) = 
+\begin{cases}
+2, \hspace{4mm} \text{if  } 0\leq x_1 \leq x_2 \leq 1 \\
+0, \hspace{4mm} \text{elsewhere}
+\end{cases}
+$$
+
+\noindent Find the pdf of $Y=X_1 + X_2$.  Define it properly.
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}}  Let $Z = X_2$.  Then we have $X_1 = Y - Z$ and $X_2 = Z$.  The Jacobian of this transformation is $J(y,z) = 1$.  If $X_1 = 0$, then $Z=Y$.  If $X_1 = 1$, then $Z = Y - 1$.  Also, if $X_2 = 1$ and $X_1 = 1$, then $Y = 2$.  So the new region on which $Y$ and $Z$ are defined is a parallelogram with vertices at $(0,0), (1,0), (1,1), (2,1)$.  The joint pdf of $Y$ and $Z$ is 
+$$
+f_{Y,Z}(y,z) = f_{X_1,X_2}(y-z,z)|J(y,z)| = 2
+$$
+
+\noindent for $(y,z)$ inside the parallelogram described above.  The marginal pdf of $Y$ is piecewise with
+\begin{align*}
+f_Y(y) &= \int\limits_0^y 2 dz \\
+&= 2y,
+\end{align*}
+
+\noindent for $0\leq y \leq 1$, and
+\begin{align*}
+f_Y(y) &= \int\limits_{y-1}^1 2 dz \\
+&= 4-2y,
+\end{align*}
+
+\noindent for $1\leq y \leq 2$.  Otherwise, $f_Y(y)$ is $0$.    
+\pagebreak
+
+\noindent\mybox{\textbf{Problem 2:}}  Let $X_1, X_2, X_3$ be independent standard normal random variables.  Let $$Y_1 = \frac{X_1-X_2}{\sqrt{2}}$$ $$Y_2 = \frac{X_1 + X_2 -2X_3}{\sqrt{6}}$$ $$Y_3 = \frac{X_1+X_2+X_3}{\sqrt{3}}.$$  Find the joint pdf of $Y_1, Y_2, Y_3$.  Are they independent?  Find the marginal pdfs as well.
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}}  Since scaled normal random variables and sums of normal random variables are still normal, it follows that $Y_1, Y_2, Y_3$ are all normal random variables.  In fact, they are standard normal due to the scalings used.  The joint pdf of $X_1, X_2, X_3$ is 
+$$
+f_{X_1,X_2,X_3}(x_1,x_2,x_3) = \frac{1}{2\pi\sqrt{2\pi}}e^{\frac{-1}{2}(x_1^2 + x_2^2 + x_3^2)}
+$$
+\noindent for $(x_1,x_2,x_3) \in \mathbb{R}^3$.  We will have $X_1 = \frac{\sqrt{6}}{3}Y_2 + \frac{2\sqrt{3}}{3}Y_3$, $X_2 = \frac{\sqrt{6}}{3}Y_2 -\sqrt{2}Y_1 +\frac{2\sqrt{3}}{3}Y_3$, and $X_3 = \frac{\sqrt{3}}{3}Y_3 - \frac{\sqrt{6}}{3}Y_2$.  It can easily be seen that the Jacobian of the transformation is $J(y_1,y_2,y_3) = 2$.  Therefore, the joint pdf of $Y_1, Y_2, Y_3$ is 
+\begin{align*}
+f_{Y_1,Y_2,Y_3}(y_1,y_2,y_3) &= f_{X_1,X_2,X_3}\left(\frac{\sqrt{6}}{3}y_2 + \frac{2\sqrt{3}}{3}y_3,\frac{\sqrt{6}}{3}y_2 -\sqrt{2}y_1 +\frac{2\sqrt{3}}{3}y_3,\frac{\sqrt{3}}{3}y_3 - \frac{\sqrt{6}}{3}y_2 \right)|J(y_1,y_2,y_3)| \\
+&= \frac{1}{\pi\sqrt{2\pi}}e^{\frac{-1}{2}\left[\left(y_1^2-2\frac{\sqrt{12}}{3}y_1y_2+y_2^2\right)+\left(y_1^2-2\frac{2\sqrt{6}}{3}y_1y_3+y_3^2\right)+\left(y_2^2+2\frac{3\sqrt{18}}{9}y_3y_2+y_3^2\right)\right]}
+\end{align*}
+\noindent where $(y_1,y_2,y_3)\in \mathbb{R}^3$.  Clearly, $Y_1, Y_2, Y_3$ are not independent, since there is coupling between them in their joint pdf.  The marginals will all be standard normal random variables.  We can see that from the fact that the joint pdf of $Y_1, Y_2, Y_3$ is multivariate normal.  So each marginal pdf will be of the form $$f_Z(z) = \frac{1}{\sqrt{2\pi}}e^{\frac{-1}{2}z^2}  $$for $z \in \mathbb{R}$.  
+
+
+\pagebreak
+
+\noindent\mybox{\textbf{Problem 3:}}  Let $X$ and $Y$ be two independent chi-squared variables with $n_1$ and $n_2$ degrees of freedom, respectively.  Find the joint pdf of $(U,V)$, where $U = X+Y$, and $V = \frac{X}{Y}$.  Are $U$ and $V$ independent?  
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}}  Given $U = X + Y$ and $V = \frac{X}{Y}$, we have $X = \frac{UV}{V+1}$ and $Y = \frac{U}{V+1}$, so the Jacobian of the transformation is $$J(u,v) = \left(\frac{\partial x}{\partial u}\right)\left(\frac{\partial y}{\partial v}\right) - \left(\frac{\partial y}{\partial u}\right)\left(\frac{\partial x}{\partial v}\right) = \frac{-u}{(v+1)^2}.$$  The joint pdf of $(U,V)$ is 
+
+\begin{align*}
+f_{U,V}(u,v) &= f_{X,Y}\left(\frac{uv}{v+1}, \frac{u}{v+1}\right)|J(u,v)| \\
+&= \frac{1}{\Gamma\left(\frac{n_1}{2}\right)\Gamma\left(\frac{n_2}{2}\right)2^{\frac{n_1+n_2}{2}}}u^{\frac{n_1+n_2}{2}-1}v^{\frac{n_1}{2}-1}\left(\frac{1}{v+1}\right)^{\frac{n_1+n_2}{2}}e^{-\frac{u}{2}}
+\end{align*}
+
+\noindent where $u\geq 0$ and $v\geq 0$.  The marginal pdf of $V$ is  
+\begin{align*}
+f_v(V) &= \int\limits_0^{\infty}f_{U,V}(u,v) du \\
+&= \frac{\Gamma\left( \frac{n_1+n_2}{2}\right)}{\Gamma\left(\frac{n_1}{2}\right)\Gamma\left(\frac{n_2}{2}\right)}v^{\frac{n_2}{2}-1}\left(\frac{1}{v+1}\right)^{\frac{n_1+n_2}{2}},
+\end{align*}
+since we can clearly form a Gamma integral using the variable $u$, with $\alpha = \frac{n_1+n_2}{2}$ and $\beta = 2$.  The variable $v$ will range from $0$ to infinity. 
+
+\noindent $U$ is clearly a chi-squared random variable with $n1+n2$ degrees of freedom, so its pdf is 
+$$
+f_U(u) = \frac{1}{\Gamma\left(\frac{n_1+n_2}{2}\right)2^{\frac{n_1+n_2}{2}}}e^{\frac{-u}{2}}u^{\frac{n_1+n_2}{2}-1}
+$$
+for $u\geq 0$.
+
+\noindent It is now evident that the product $$f_U(u)f_V(v) = f_{U,V}(u,v).$$  Therefore, $U$ and $V$ are independent.
+
+\pagebreak
+
+\noindent\mybox{\textbf{Problem 4:}}  Let $X, Y, Z$ have joint pdf $$f(x,y,z) =
+\begin{cases}
+\frac{6}{(1+x+y+z)^4} \hspace{5mm} x > 0, y > 0, z > 0 \\
+0 \hspace{20mm} \text{elsewhere.}
+\end{cases}
+$$
+Find the pdf of $U = X+Y+Z$.  Hint:  Define $V=Y+Z$ and $W=Z$.  
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}}  Using the definitions for $U, V,$ and $W$, we have $X = U - V$, $Y = V - W$, and $Z = W$.  The Jacobian of this transformation is $J(u,v,w) = 1$.  Thus, the joint pdf of $U, V, W$ is 
+$$
+f_{U,V,W}(u,v,w) = f_{X,Y,Z}(u-v, v-w, w)|J(u,v,w)| = \frac{6}{(1+u)^4}
+$$
+
+\noindent where $0 \leq w \leq v$, $0 \leq v \leq u$, and $u \geq 0$.  Now, the pdf of $U$ is 
+\begin{align*}
+f_U(u) &= \int\limits_0^u\int\limits_0^v \frac{6}{(1+u)^4}dwdv \\
+&= \int\limits_0^u\frac{6v}{(1+u)^4} dv \\
+&= \frac{3u^2}{(1+u)^4}
+\end{align*}
+
+\noindent where $u \geq 0$.  
+
+\pagebreak
+
+\noindent\mybox{\textbf{Problem 5:}}  Let $X$ and $Y$ be independent with common pdf $$f(x) = 
+\begin{cases}
+\frac{1}{x\sqrt{2\pi}}e^{-\frac{1}{2}(\ln x)^2} \hspace{5mm} x > 0 \\
+0 \hspace{25mm} x \leq 0
+\end{cases}
+$$
+
+\noindent Find the pdf of $Z=XY$.  
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}}  The common pdf of $X$ and $Y$ indicates that they are both log-normal random variables with parameters $\mu = 0$ and $\sigma^2 = 1$.  Taking the logarithm of $Z$, we have
+$$\ln(Z) = \ln(X) + \ln(Y),$$ where $\ln(X)$ and $\ln(Y)$ are standard normal random variables.  The sum $[\ln(X) + \ln(Y)] \sim$ N$(\mu = 0, \sigma^2 = 2)$.  Thus, $\ln(Z) \sim$ N$(\mu = 0, \sigma^2 = 2)$, which means $Z \sim$ log-normal$(\mu = 0, \sigma^2 = 2)$.  Therefore, the pdf of $Z$ is 
+$$
+f(z) = 
+\begin{cases}
+\frac{1}{2z\pi}e^{-\frac{1}{4}(\ln z)^2} \hspace{5mm} z > 0 \\
+0 \hspace{23mm} z \leq 0.
+\end{cases}
+$$
+
+\pagebreak
+
+\noindent\mybox{\textbf{Problem 6:}}  Let $X$ and $Y$ be independent, each having exponential distribution with mean equal to $1$.  Let $U = X + Y$ and $V = X - Y$.  Find the conditional pdf of $V$ given $U=u$ for some fixed $u > 0$.  
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}}  Since $X$ and $Y$ are independent exponential random variables with $\beta = 1$, the joint pdf of $X$ and $Y$ is
+$$ f_{X,Y}(x,y) = e^{-(x+y)}, $$ for $x\geq 0$ and $y \geq 0$.  Since $V = X-Y$ and $U = X + Y$, it follows that $X = \frac{V + U}{2}$ and $Y = \frac{U - V}{2}$.  This transformation will give us a new region over which the joint pdf of $U$ and $V$ is defined.  Letting $y = 0$ yields $u = v$, whereas letting $x = 0$ yields $u = -v$.  The variable $u$ will still range from $0$ to infinity, but $v$ will range from $-u$ to $u$.  Now, the joint distribution of $U$ and $V$ is 
+
+$$f_{U,V}(u,v) = f_{X,Y}\left(\frac{v+u}{2}, \frac{u-v}{2}\right)|J(u,v)| = \frac{1}{2}e^{-u},$$
+for $u\geq 0$ and $-u\leq v \leq u$.  From this joint pdf, we can find the marginal pdf of $U$:
+
+\begin{align*}
+f_U(u) &= \frac{1}{2}\int\limits_{-u}^{u} e^{-u} dv \\
+&= ue^{-u},
+\end{align*}
+
+\noindent for $u\geq 0$.  We now have all the required information to find the conditional pdf of $V\hspace{2mm}|\hspace{2mm}U=u$.  It is
+\begin{align*}
+f_{V|U}(v|u) &= \frac{f_{U,V}(u,v)}{f_U(u)}  \\
+&= \frac{1}{2}\frac{e^{-u}}{ue^{-u}} \\
+&= \frac{1}{2u},
+\end{align*}
+
+\noindent for $-u \leq v \leq u$.  
+
+\end{document}
