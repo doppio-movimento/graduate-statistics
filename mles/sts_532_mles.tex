@@ -1,0 +1,350 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+
+\linespread{1.8}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{1pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+\title{STS 532: HW I}
+\begin{document}
+
+%%
+%% Title 
+%%
+\begin{center}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill \\
+\vspace{-0.3cm}
+
+\begin{Large}
+\textbf{STS 532:  Mathematical Statistics II} \\
+\textbf{Homework I} \\
+\end{Large}
+\begin{large}
+\end{large}
+\vspace{-7mm}
+\noindent \textbf{Date:} \hfill \textbf{Author:}\\
+\noindent\today \hfill Nolan R. H. Gagnon \\
+
+\vspace{-0.4cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\vspace{7mm}
+
+%%
+%% PROBLEM 7.1
+%%
+\noindent\mybox{\textbf{C\&B 7.1}} One observation is taken on a discrete random variable $X$ with pmf $f(x|\theta)$ (shown in the table below), where $\theta \in \lbrace 1, 2, 3 \rbrace$.  Find the MLE of $\theta$.  
+
+\begin{center}
+\begin{tabular}{cccc}
+\hline
+$x$ & $f(x|1)$ & $f(x|2)$ & $f(x|3)$ \\
+\hline
+$0$ & $\frac{1}{3}$ & $\frac{1}{4}$ & $0$ \\
+$1$ & $\frac{1}{3}$ & $\frac{1}{4}$ & $0$ \\
+$2$ & $0$ & $\frac{1}{4}$ & $\frac{1}{4}$ \\
+$3$ & $\frac{1}{6}$ & $\frac{1}{4}$ & $\frac{1}{2}$ \\
+$4$ & $\frac{1}{6}$ & $0$ & $\frac{1}{4}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution}} Let $x$ be a single observation taken on the random variable $X$.  The likelihood function of this sample is $$L= f(x|\theta).$$  The MLE (call it $\hat{\theta}$) for $\theta$ is the value that maximizes $L$.  When $x=0$, $L$ is maximized for $\theta = 1$.  Following this example, we can write 
+$$\hat{\theta} = 
+\begin{cases}
+1, & \text{if } x=0 \text{ or } x=1 \\
+2, & \text{if } x=2 \\
+3, & \text{if } x = 3 \text{ or } x = 4.
+\end{cases}
+$$
+
+\noindent When $x= 2$, $L$ is maximized for $\theta = 2$ and $\theta = 3$.  So another MLE for $\theta$ is 
+$$\hat{\theta}_2 = 
+\begin{cases}
+1, & \text{if } x=0 \text{ or } x=1 \\
+3, & \text{if } x=2, x = 3, \text{ or } x = 4.
+\end{cases}
+$$
+
+\pagebreak
+
+%%
+%% PROBLEM 7.8
+%%
+\noindent\mybox{\textbf{C\&B 7.8}}  One observation, $X$, is taken from a $n(0,\sigma^2)$ population.
+\begin{flushleft}
+\textbf{(a)} Find an unbiased estimator of $\sigma^2$.\\
+\textbf{(b)} Find the MLE of $\sigma$.\\
+\textbf{(c)} Discuss how the method of moments estimator of $\sigma$ might be found.
+\end{flushleft}
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution}}\\
+\textbf{(a)} Note that 
+\begin{align}
+E[X^2] &= E[X^2] - E^2[X] + E^2[X] \\
+&= V[X] + E^2[X] \\
+&= V[X] \\
+&= \sigma^2.
+\end{align}
+
+\noindent Thus, $X^2$ is an unbiased estimator of $\sigma^2$.  
+\\
+
+\noindent\textbf{(b)} The density function of the population is 
+
+\begin{align}
+f(x|\sigma) &= \frac{1}{\sqrt{2\pi}\sigma}\exp\left(\frac{-x}{2\sigma^2}\right)
+\end{align}
+
+\noindent with $\sigma > 0$ and $-\infty < x < \infty$.  For a single observation, the log-likelihood function is then 
+
+\begin{align}
+\mathscr{L}(x|\sigma) &= \text{ln}\left(L(x|\sigma)\right) \\
+&= \text{ln}\left(f(x|\sigma)\right) \\
+&= \text{ln}\left(\frac{1}{\sqrt{2\pi}\sigma}\exp\left(\frac{-x}{2\sigma^2}\right)\right) \\
+&= -\frac{x}{2\sigma^2}-\text{ln}\left(\sqrt{2\pi}\right) - \text{ln}(\sigma).
+\end{align}
+
+\noindent The MLE of $\sigma$ is the number $\hat{\sigma}$ that maximizes $\mathscr{L}$.  To find this number, the equation 
+
+\begin{align}
+\frac{\partial\mathscr{L}}{\partial\sigma} &= 0
+\end{align}
+
+\noindent is solved for $\sigma$. We have
+\begin{align}
+\frac{\partial\mathscr{L}}{\partial\sigma} &= x\sigma^{-3} - \sigma^{-1}.
+\end{align}
+
+\noindent Setting this equal to zero yields $\sigma^2 = x^2$, or $\sigma = |x|$.  Thus, the MLE for $\sigma$ is $\hat{\sigma} = |x|$.\\
+
+\vspace{5mm}
+
+\noindent\textbf{(c)} Let $m_1, m_2$ be the first two sample moments and let $\mu^{\prime}_1, \mu^{\prime}_2$ be the first two population moments.  To find the method-of-moments estimator for $\sigma$, we solve the system
+\begin{align}
+m_1 &= \mu^{\prime}_1 \\
+m_2 &= \mu^{\prime}_2
+\end{align}
+
+\noindent From part (a), we know that $\mu^{\prime}_2 = \sigma^2$.  Since $m_2 = x^2$, our estimator is $\hat{\sigma} = |x|$.  In this particular case, the method-of-moments estimator for $\sigma$ is equal to the MLE for $\sigma$.  
+\pagebreak
+
+%%
+%% PROBLEM 7.11
+%%
+\noindent\mybox{\textbf{C\&B 7.11}} Let $X_1, \ldots, X_n$ be iid with pdf $$f(x|\theta) = \theta x^{\theta - 1}, \hspace{2mm} 0\leq x \leq 1, \hspace{2mm} 0 < \theta < \infty.$$
+\begin{flushleft}
+\textbf{(a)} Find the MLE of $\theta$, and show that its variance tends to $0$ as $n$ tends to $\infty$.  \\
+\textbf{(b)} Find the method-of-moments estimator of $\theta$.
+\end{flushleft}
+
+\vspace{5mm}
+\noindent\mybox{\textbf{Solution}}\\
+\noindent\textbf{(a)} The likelihood function is 
+\begin{align}
+L &= \prod\limits_{i=1}^n f(x_i|\theta) \\
+&= \theta^n(x_1 x_2 \cdots x_n)^{\theta - 1}.
+\end{align}
+
+\noindent The log-likelihood function is
+\begin{align}
+\mathscr{L} &= \text{ln}(L) \\
+&= n\text{ln}(\theta) + (\theta - 1)\sum\limits_{i=1}^n \text{ln}(x_i).
+\end{align}
+
+\noindent To find the value of $\theta$ that maximizes $\mathscr{L}$, we solve $$\frac{\partial \mathscr{L}}{\partial \theta} = 0.$$  We have
+\begin{align}
+\frac{\partial \mathscr{L}}{\partial \theta} &= \frac{n}{\theta} + \sum\limits_{i=1}^n \text{ln}(x_i).
+\end{align}
+
+\noindent Setting this equal to $0$ and solving for $\theta$ gives us the desired MLE: $$\hat{\theta} = \frac{n}{-\sum\limits_{i=1}^n \text{ln}(x_i)}.$$ The variance of $\hat{\theta}$ is 
+\begin{align}
+\text{Var}(\hat{\theta}) &= \text{Var}\left[\frac{n}{-\sum\limits_{i=1}^n \text{ln}(x_i)}\right] \\
+&= n^2\text{Var}\left[ \frac{1}{-\sum\limits_{i=1}^n\text{ln}(X_i)} \right].
+\end{align}
+
+\noindent Now consider the random variable $W = -\text{ln}(X).$ From Theorem 2.1.5 (from Casella's and Berger's textbook), the pdf of $W$ is $$f_W(w) = \theta\left(e^{-w}\right)^{\theta - 1}\left|-e^{-w}\right| = \theta e^{-w\theta} = \frac{1}{1/\theta}e^{-\frac{w}{1/\theta}}, \hspace{2mm} w > 0.$$ Clearly, this indicates that $W$ is an exponential random variable.  The sum of iid exponential random variables is Gamma. Thus, $Y=-\sum\limits_{i=1}^n\text{ln}(X_i)$ is Gamma with $\alpha = n$ and $\beta = \frac{1}{\theta}$.  The distribution of $\frac{1}{Y}$ is inverse Gamma with $\alpha = n$ and $\beta = \frac{1}{\theta}$.  So
+\begin{align}
+\text{Var}(\hat{\theta}) &= n^2\text{Var}\left[\frac{1}{Y}\right] \\
+&= n^2\frac{(1/\theta)^2}{(n-1)^2(n-2)} 
+\end{align}
+
+\noindent Since the highest power of $n$ in the numerator of (22) is $2$ and the highest power of $n$ in the denominator of (22) is $3$, it is clear that $\text{Var}(\hat{\theta})$ tends to $0$ as $n$ tends to $\infty$. 
+
+\vspace{5mm}
+
+\noindent\textbf{(b)} The method-of-moments estimator for $\theta$ is found by solving $$\bar{X} = E[X]$$ for $\theta$. We have 
+\begin{align}
+E[X] &= \int\limits_0^1 x \theta x^{\theta - 1} \hspace{1mm} dx \\
+&= \int\limits_0^1 \theta x^{\theta} \hspace{1mm} dx \\
+&= \theta\left[\frac{x^{\theta+1}}{\theta+1} \right]^1_0 \\
+&= \frac{\theta}{\theta + 1}
+\end{align}
+
+\noindent Solving $\bar{X} = \frac{\theta}{\theta + 1}$ for $\theta$ yields $\theta = \frac{\bar{X}}{1-\bar{X}},$ which is the method-of-moments estimator.   
+
+\pagebreak
+
+%%
+%% PROBLEM 7.12
+%%
+\noindent\mybox{\textbf{C\&B 7.12}}  Let $X_1, X_2, \ldots, X_n$ be a random sample from a population with pmf $$P_{\theta}(X=x) = \theta^x(1-\theta)^{1-x}, \hspace{5mm} x = 0 \text{ or } x = 1, \hspace{5mm} 0<\theta<\frac{1}{2}.$$
+\begin{flushleft}
+\textbf{(a)} Find the method of moments estimator and MLE of $\theta$.\\
+\textbf{(b)} Find the mean squared errors of each of the estimators.\\
+\textbf{(c)} Which estimator is preferred? Justify your choice.
+\end{flushleft}
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution}}  \\
+\textbf{(a)} To find the method of moments estimator of $\theta$, equate $\mu^{\prime}_1 = E[X]$ and $m_1 = \frac{1} {n}\sum\limits_{i=1}^nX_i = \bar{X}$.  Since $E[X] = \theta$, the estimator is $\hat{\theta}_1 = \bar{X}$.
+
+\vspace{3mm}
+
+\noindent To find the MLE of $\theta$, first find the log-likelihood function.  For this problem, it will be
+\begin{align}
+\mathscr{L} &= \text{ln}(\theta)\sum\limits_{i=1}^nX_i + \text{ln}(1-\theta)\sum\limits_{i=1}^n(1-X_i).
+\end{align}
+
+\noindent Now set $\frac{\partial\mathscr{L}}{\partial \theta} = 0$.  This produces
+\begin{align}
+\frac{1}{\theta}\sum\limits_{i=1}^nX_i -\frac{1}{1-\theta}\sum\limits_{i=1}^n(1-X_i) &= 0
+\end{align}
+
+\noindent or 
+\begin{align}
+(1-\theta) \sum\limits_{i=1}^nX_i &= \theta\sum\limits_{i=1}^n(1-X_i) \\
+&= n\theta - \theta\sum\limits_{i=1}^nX_i.
+\end{align}
+
+\noindent Equation (30), of course, implies that $\theta = \bar{X}$.  However, we must consider that $\bar{X}$ could be outside the valid range for $\theta$, in which case $\mathscr{L}$ would be maximized at $\theta = \frac{1}{2}$.  Thus, the MLE for $\theta$ is $\hat{\theta} = \min\left\lbrace \bar{X}, \frac{1}{2} \right\rbrace.$
+
+\vspace{5mm}
+
+\noindent \textbf{(b)} The mean-squared-error of the method-of-moments estimator is
+\begin{align}
+E[(\bar{X}-\theta)^2] &= E[\bar{X}^2 - 2\theta\bar{X} + \theta^2] \\
+&= E[\bar{X}^2] -2\theta E[\bar{X}] + \theta^2.
+\end{align}
+
+\noindent It can easily be shown that $E[\bar{X}] = \theta$.  As for $E[\bar{X}^2]$, the calculation is a bit more complicated. We have
+\begin{align}
+E[\bar{X}^2] &= E\left[ \left(\frac{X_1 + X_2 + \ldots + X_n)}{n}\right)^2\right] \\
+&= \frac{1}{n^2} E[(X_1+X_2+\ldots +X_n)^2] \\
+&= \frac{1}{n^2}E[X_1^2 + 2X_1(X_2+\ldots+ X_n) + (X_2 + \ldots + X_n)^2].
+\end{align}
+
+\noindent It is easy to show that all of the moments of the $X_i$ are equal to $\theta$. Furthermore, since the $X_i$ are independent, (35) becomes
+\pagebreak
+\begin{align}
+\frac{1}{n^2}E[X_1^2 + 2X_1(X_2+\ldots+ X_n) + (X_2 + \ldots + X_n)^2] &= \frac{1}{n^2}\left[\theta + 2\theta^2(n-1) + E[(X_2 + \ldots + X_n)^2]\right].
+\end{align}
+\noindent Following the emerging pattern, we see that 
+\begin{align}
+E[\bar{X}^2] &= \frac{1}{n^2}\left[ n\theta +2\theta^2\sum\limits_{i=1}^{n-1}(n-i) \right] \\
+&= \frac{1}{n^2}\left[n\theta + 2\theta^2\left( n(n-1) - \frac{n(n-1)}{2}\right)\right] \\
+&= \frac{\theta}{n} + \frac{\theta^2(n-1)}{n}.
+\end{align}
+\noindent Thus, equation (32) becomes 
+\begin{align}
+E[(\bar{X}-\theta)^2] &= \frac{\theta}{n} + \frac{\theta^2(n-1)}{n} - 2\theta^2 + \theta^2 \\
+&= \frac{\theta}{n} + \frac{\theta^2(n-1)}{n} - \theta^2 \\
+&= \frac{\theta +\theta^2n-\theta^2 -\theta^2n}{n} \\
+&= \frac{\theta(1-\theta)}{n}.
+\end{align}
+
+\noindent Next we calculate the MSE of the MLE.  First note that $Y=n\bar{X}$ is a binomial random variable with $n$ trials and probability of success equal to $\theta$. This will be useful when calculating the MSE.  Now, the MSE is
+\begin{align}
+E\left[\left(\text{min}\left(\bar{X}, \frac{1}{2}\right) - \theta\right)^2\right] &= \frac{1}{n^2}E\left[\left(\text{min}\left(n\bar{X}, \frac{n}{2}\right) - \theta\right)^2\right] \\
+&= \frac{1}{n^2}E\left[\left(\text{min}\left(Y, \frac{n}{2}\right) - n\theta\right)^2\right] \\
+&= \frac{1}{n^2}\sum\limits_{y=0}^n\left(\text{min}\left(y, \frac{n}{2}\right) - n\theta\right)^2{n\choose y}\theta^y(1-\theta)^{n-y} \\
+&= \frac{1}{n^2}\sum\limits_{y=0}^{\frac{n}{2}}(y- n\theta)^2{n\choose y}\theta^y(1-\theta)^{n-y} + \frac{1}{n^2}\sum\limits_{y=\frac{n}{2}+1}^n\left(\frac{n}{2} - n\theta\right)^2{n \choose y}\theta^y(1-\theta)^{n-y}.
+\end{align}
+
+\noindent\textbf{(c)} To determine which estimator is better, we find the difference between the two.  First note that the MSE for the method-of-moments estimator can be written as
+\begin{align}
+E[(\bar{X}-\theta)^2] &= \frac{1}{n^2}E[(n\bar{X}-n\theta)^2] \\
+&= \frac{1}{n^2}E[(Y-n\theta)^2] \\
+&= \frac{1}{n^2}\sum\limits_{y=0}^n (y-n\theta)^2{n\choose y}\theta^y(1-\theta)^{n-y}.
+\end{align}
+
+\noindent Now the difference of the MSEs is
+\pagebreak
+\begin{align}
+\frac{1}{n^2}\sum\limits_{y=0}^n (y-n\theta)^2{n\choose y}\theta^y(1-\theta)^{n-y} - &\frac{1}{n^2}\sum\limits_{y=0}^{\frac{n}{2}}(y- n\theta)^2{n\choose y}\theta^y(1-\theta)^{n-y} - \frac{1}{n^2}\sum\limits_{y=\frac{n}{2}+1}^n\left(\frac{n}{2} - n\theta\right)^2{n \choose y}\theta^y(1-\theta)^{n-y} \\
+&= \frac{1}{n^2}\sum\limits_{y=\frac{n}{2}+1}^n\left[(y-n\theta)^2 - \left(\frac{n}{2}-n\theta\right)^2\right]{n\choose y}\theta^y(1-\theta)^{n-y} \\
+&= \frac{1}{n^2}\sum\limits_{y=\frac{n}{2}+1}^n\left(y-n\theta+\frac{n}{2}-n\theta\right)\left(y-n\theta-\frac{n}{2}+n\theta\right){n\choose y}\theta^y(1-\theta)^{n-y} \\
+&= \frac{1}{n^2}\sum\limits_{y=\frac{n}{2}+1}^n\left(y+\frac{n}{2}-2n\theta\right)\left(y-\frac{n}{2}\right){n\choose y}\theta^y(1-\theta)^{n-y}
+\end{align}
+
+\noindent The smallest that $y$ can be in this sum is $y=\frac{n}{2}+1$.  The largest that $\theta$ can be is $\frac{1}{2}$. Thus, unless $\theta = 0$, the result in (54) is necessarily positive.  This implies that the MSE of the method-of-moments estimator is greater than the MSE of the MLE.  Therefore, the MLE is the better estimator.    
+\pagebreak
+
+%%
+%% PROBLEM 7.15(a)
+%%
+\noindent\mybox{\textbf{C\&B 7.15(a)}}  Let $X_1, X_2, \ldots, X_n$ be a sample from the inverse Gamma pdf, $$f(x|\mu, \lambda) = \left(\frac{\lambda}{2\pi x^3}\right)^{1/2}\exp\left(\frac{-\lambda(x-\mu)^2}{2\mu^2x}\right) \hspace{5mm} x > 0.$$ Show that the MLEs of $\mu$ and $\lambda$ are $$\hat{\mu}_n = \bar{X} \text{ and } \hat{\lambda}_n = \frac{n}{\sum\limits_{i=1}^n\left(\frac{1}{X_i} - \frac{1}{\bar{X}}\right)}.$$
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution}} The log-likelihood function for this sample is 
+\begin{align}
+\mathscr{L} &= \frac{n}{2}\text{ln}\left(\frac{\lambda}{2\pi}\right) + \frac{3}{2}\sum\limits_{i=1}^{n}\text{ln}\left(\frac{1}{X_i}\right) - \frac{\lambda}{2\mu^2}\sum\limits_{i=1}^{n}\frac{(X_i-\mu)^2}{X_i}.
+\end{align}
+
+\noindent Setting $\frac{\partial\mathscr{L}}{\partial\mu}$ equal to zero yields
+
+\begin{align}
+\frac{\lambda}{\mu^3}\left[\sum\limits_{i=1}^n\frac{(X_i-\mu)^2}{X_i} + \sum\limits_{i=1}^n\frac{\mu(X_i-\mu)}{X_i} \right] &= \frac{\lambda}{\mu^3}\sum\limits_{i=1}^n\frac{X_i^2-2X_i\mu+\mu^2+X_i\mu-\mu^2}{X_i} \\
+&= \frac{\lambda}{\mu^3}\sum\limits_{i=1}^n\frac{X_i^2-X_i\mu}{X_i} \\
+&= \frac{\lambda}{\mu^3}\sum\limits_{i=1}^n(X_i-\mu) \\
+&= 0.
+\end{align}
+
+\noindent Therefore, $\sum\limits_{i=1}^n\mu = \sum\limits_{i=1}^nX_i$; i.e., $\mu = \bar{X}.$  Thus, the MLE for $\mu$ is $\hat{\mu}_n = \bar{X}$.  To find the MLE for $\lambda$ we begin by setting $\frac{\partial\mathscr{L}}{\partial\lambda} = 0.$  After a few simple algebraic manipulations, this yields
+\begin{align}
+\lambda &= \frac{n}{\frac{1}{\mu^2}\sum\limits_{i=1}^n\frac{(X_i-\mu)^2}{X_i}}.
+\end{align}
+
+\noindent The denominator of the above can be written as
+\begin{align}
+\frac{1}{\mu^2}\sum\limits_{i=1}^n\frac{(X_i-\mu)^2}{X_i} &= \frac{1}{\mu^2}\sum\limits_{i=1}^n\frac{X_i^2-2X_i\mu + \mu^2}{X_i} \\
+&= \sum\limits_{i=1}^n\frac{X_i}{\mu^2} - \sum\limits_{i=1}^n\frac{2}{\mu} + \sum\limits_{i=1}^n\frac{1}{X_i}.
+\end{align}
+
+\noindent Substituting $\hat{\mu}_n$ for $\mu$ in the above equation makes the right-hand side become 
+\begin{align}
+\sum\limits_{i=1}^n \frac{X_i}{\bar{X}^2} - \bar{X}\sum\limits_{i=1}^n\frac{2}{\bar{X}^2} + \sum\limits_{i=1}^n \frac{1}{X_i} &= \frac{1}{\bar{X}^2}\sum\limits_{i=1}^n (X_i - 2\bar{X}) + \sum\limits_{i=1}^n \frac{1}{X_i} \\
+&= \frac{1}{\bar{X}^2}\sum\limits_{i=1}^n (X_i - \bar{X}) -\frac{1}{\bar{X}^2}\sum\limits_{i=1}^n\bar{X} + \sum\limits_{i=1}^n \frac{1}{X_i} \\
+&= 0 -\frac{1}{\bar{X}^2}\sum\limits_{i=1}^n\bar{X} + \sum\limits_{i=1}^n \frac{1}{X_i} \\
+&= \sum\limits_{i=1}^n\left(\frac{1}{X_i} - \frac{1}{\bar{X}}\right).
+\end{align}
+
+\noindent Thus, $$\hat{\lambda}_n = \frac{n}{\sum\limits_{i=1}^n\left(\frac{1}{X_i} - \frac{1}{\bar{X}}\right)}.$$  
+
+\hfill$\blacksquare$
+
+\end{document}
