@@ -1,0 +1,196 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+
+\linespread{1.8}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{1pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+
+\title{STS 531:  Mathematical Statistics I \\
+	   \textbf{Homework III}}
+\author{Nolan R. H. Gagnon}
+\begin{document}
+\maketitle
+\large
+\noindent\mybox{\textbf{3.7}}  Let the number of chocolate chips in a certain type of cookie have a Poisson distribution.  We want the probability that a randomly chosen cookie has at least two chocolate chips to be greater than .99.  Find the smallest value of the mean of the distribution that ensures this probability.
+
+\vspace{3mm}
+
+\noindent\mybox{\textbf{Solution:}}  Let $X = \text{ ``number of chocolate chips in a certain type of cookie''}$, with $X \sim \text{Poisson}(\lambda)$.  Then 
+\begin{align}
+P(X\geq 2) &= 1 - P(X < 2) \\
+&= 1 - P(X=1) = P(X=0) \\
+&= 1 - e^{-\lambda}\lambda - e^{-\lambda} \\
+&= 1 - e^{-\lambda}(\lambda + 1).
+\end{align}
+
+\noindent We require that $P(X\geq 2) > 0.99$, so we must have $$e^{-\lambda}(\lambda + 1) < 0.01.$$  The smallest $\lambda$ that satisfies this inequality can be found approximately by numerical methods.  Computer software yields $\lambda \approx 6.63835$.  
+
+\pagebreak
+
+\noindent\mybox{\textbf{3.8}}  Two movies theaters compete for the business of 1000 customers.  Assume that each customer chooses between the movie theaters independently and with ``indifference.''  Let $N$ denote the number of seats in each theater.  \textbf{(a)}  Using a binomial model, find an expression for $N$ that will guarantee that the probability of turning away a customer (because of a full house) is less than $0.01$.  \textbf{(b)}  Use the normal approximation to get a numerical value for $N$.  
+
+\vspace{3mm}
+
+\noindent\mybox{\textbf{Solution:}}  \textbf{(a)} Let $X \sim \text{ Binomial}(p = 0.5, n = 10000)$.  The probability of turning away a customer is 
+\begin{align}
+P(X > N) &= 1 - P(X\leq N) \\
+&= 1 - \sum\limits_{k = 0}^{N}{1000 \choose k}(0.5)^k(0.5)^{1000 - k} \\
+&= 1 - \sum\limits_{k = 0}^N{1000 \choose k}0.5^{1000} \\
+&= 1 - 0.5^{1000}\sum\limits_{k = 0}^{N}{1000 \choose k}
+\end{align}
+
+\noindent Since we want this probability to be less than 0.01, we must have $$\sum\limits_{k=0}^N{1000 \choose k} > \frac{0.99}{0.5^{1000}}.$$
+
+\vspace{3mm}
+
+\noindent\textbf{(b)}  Let $Y \sim \text{ Normal}(\mu = np = 500, \sigma^2 = np(1-p) = 250)$.  Then 
+\begin{align}
+P(X>N) &= 1 - P(X\leq N) \\
+&\approx 1 - P(Y \leq N) \\
+&= 1 - P\left(\frac{Y - 500}{\sqrt{250}} \leq \frac{N-500}{\sqrt{250}}\right) \\
+&= 1 - P\left(Z \leq \frac{N - 500}{\sqrt{250}}\right)
+\end{align}
+
+\noindent To satisfy the inequality, we must have $$P\left(Z \leq \frac{N - 500}{\sqrt{250}}\right) > 0.99.$$  Using a standard normal table, we find that $$\frac{N- 500}{\sqrt{250}} = 2.33.$$ This gives $N = 537$.  
+
+\pagebreak
+
+\noindent\mybox{\textbf{3.13}}  A truncated discrete distribution is one in which a particular class cannot be observed and is eliminated from the sample space.  In particular, if $X$ has range $0, 1, 2, \ldots$ and the $0$ class cannot be observed (as is usually the case), the $0$-truncated random variable $X_T$ has pmf $$P(X_T = x) = \frac{P(X=x)}{P(X>0)},$$ with $x = 1, 2, \ldots$.  Find the pmf, mean, and variance of the 0-truncated random variable starting from \textbf{(a)}  $X \sim \text{Poisson}(\lambda)$ and \textbf{(b)} $X \sim \text{ negative binomial}(r,p)$.  
+
+\vspace{3mm}
+
+\noindent\mybox{\textbf{Solution:}}  \textbf{(a)}  The pmf is $$P(X_T = x) = \frac{e^{-\lambda}\lambda^x}{x!(1-e^{-\lambda})},$$ where $x = 1, 2 \ldots$.  The mean is 
+\begin{align}
+E[X_T] &= \sum\limits_{x = 1}^{\infty} x\frac{e^{-\lambda}\lambda^x}{x!(1-e^{-\lambda})} \\
+&= \left(\frac{e^{-\lambda}}{1-e^{-\lambda}}\right)\sum\limits_{x = 1}^{\infty} \frac{\lambda^x}{(x-1)!} \\
+&= \left(\frac{\lambda e^{-\lambda}}{1-e^{-\lambda}}\right)\sum\limits_{x = 1}^{\infty} \frac{\lambda^{x-1}}
+{(x-1)!} \\ 
+&= \frac{\lambda}{1-e^{-\lambda}}.
+\end{align}
+
+\noindent The second moment is 
+\begin{align}
+E[X_T^2] &= \left(\frac{e^{-\lambda}}{1-e^{-\lambda}}\right)\sum\limits_{x=1}^{\infty}\frac{x^2\lambda^x}{x!} \\
+&= \left(\frac{e^{-\lambda}}{1-e^{-\lambda}}\right)\sum\limits_{x=1}^{\infty}\frac{x\lambda^x}{(x-1)!} \\
+&= \left(\frac{e^{-\lambda}}{1-e^{-\lambda}}\right)\left[\sum\limits_{x=2}\left\lbrace \frac{\lambda^x}{(x-2)!} + \frac{\lambda^x}{(x-1)!}\right\rbrace + \lambda \right] \\
+&= \left(\frac{e^{-\lambda}}{1-e^{-\lambda}}\right)\left[ \lambda^2e^{\lambda} + \lambda\sum\limits_{x=2}^{\infty}\left[\frac{\lambda^{x-1}}{(x-1)!}\right] + \lambda \right] \\
+&= \left(\frac{e^{-\lambda}}{1-e^{-\lambda}}\right) \left[ \lambda^2e^{\lambda} + \lambda e^{\lambda} + \lambda e^{\lambda} + \lambda - \lambda] \right] \\
+&= \frac{\lambda^2 + \lambda}{1-e^{-\lambda}}.
+\end{align}
+
+\noindent So the variance is $$Var[X_T] = \frac{\lambda^2 + \lambda}{1-e^{-\lambda}} - \frac{\lambda^2}{(1-e^{-\lambda})^2} = \frac{\lambda(1-e^{-\lambda} - \lambda e^{-\lambda})}{(1-e^{-\lambda})^2}.$$
+
+\vspace{3mm}
+
+\noindent\textbf{(b)}  The pmf is $$P(X_T = x) = \frac{{r+x-1 \choose x}p^r(1-p)^x}{1-p^r},$$ where $x = 1, 2, \ldots$.  The mean is 
+\begin{align}
+E[X_T] &=  \left(\frac{1}{1-p^r}\right)\sum\limits_{x=1}^{\infty}x{r+x-1 \choose x}p^r(1-p)^x \\
+&= \frac{r}{1-p^r}\sum\limits_{x=1}^{\infty}{r+x-1 \choose x-1}p^r(1-p)^x.
+\end{align}
+
+\noindent Let y = x - 1.  Then the summation becomes 
+\begin{align}
+\left(\frac{r}{1-p^r}\right)\sum\limits_{y=0}^{\infty}{r+y \choose y}p^r(1-p)^{y+1} &= \left(\frac{r(1-p)}{p(1-p^r)}\right)\sum\limits_{y=0}^{\infty}{(r+1) + y -1 \choose y}p^{r+1}(1-p)^{y} \\
+&= \frac{(1-p)r}{p(1-p^r)}.
+\end{align}
+
+\noindent For a negative binomial random variable $X$, the $0$-th term in all of the moment summations will be $0$.  Therefore, the variance of $X_T$ can be calculated by simply dividing the variance expression on page 96 of the textbook by $1-p^r$.  Thus, $$Var[X_T] = \frac{r(1-p)}{p^2(1-p^r)}.$$
+
+\pagebreak
+
+\noindent\mybox{\textbf{3.14}}  Starting from the 0-truncated negative binomial, if we let $r\rightarrow 0$, we get an interesting distribution, the logarithmic series distribution.  A random variable $X$ has a logarithmic series distribution with parameter $p$ if $$P(X=x) = \frac{-(1-p)^x}{x \log p},$$ where $x=1, 2, \ldots$ and $0<p<1$.  \textbf{(a)}  Verify that this defines a legitimate probability function.  \textbf{(b)}  Find the mean and variance of $X$.
+
+\vspace{3mm}
+
+\noindent\mybox{\textbf{Solution:}}  \textbf{(a)}  Since 
+\begin{align}
+\sum\limits_{x=1}^{\infty}\frac{-(1-p)^x}{x \log p} &= \frac{1}{\log p}\sum\limits_{x=1}^{\infty} \frac{-(1-p)^x}{x} \\
+&=\frac{1}{\log p}\log(1-(1-p))  \\
+&= \frac{\log p}{\log p} \\
+&= 1,
+\end{align}
+
+\noindent $P(X=x)$ is a legitimate probability function.
+
+\vspace{3mm}
+
+\noindent\textbf{(b)}  The mean of $X$ is 
+\begin{align}
+E[X] &= \sum\limits_{x=1}^{\infty}x\frac{-(1-p)^x}{x \log p} \\
+&= \left(\frac{-1}{\log p}\right)\sum\limits_{x=1}^{\infty} (1-p)^x \\
+&= \left(\frac{-1}{\log p}\right)\left(\frac{1}{1-(1-p)} - 1\right) \\
+&= \left(\frac{-1}{\log p}\right)\left(\frac{1}{p} - \frac{p}{p}\right) \\
+&= \left(\frac{-1}{\log p}\right)\left(\frac{1-p}{p}\right) \\
+&= \frac{p - 1}{p \log p}.
+\end{align}
+
+\noindent The second moment of $X$ is 
+\begin{align}
+E[X^2] &= \sum\limits_{x=1}^{\infty}x^2\frac{-(1-p)^x}{x \log p} \\
+&= \left(\frac{-1}{\log p}\right)\sum\limits_{x=1}^{\infty} x(1-p)^x \\
+&= \left(\frac{-1}{\log p}\right) \sum_{x=1}^{\infty} x q^x \\
+&= \left(\frac{-1}{\log p}\right)\left(q\frac{d}{dq}\left[ \sum_{x=0}^{\infty}q^x - 1 \right]\right) \\
+&= \left(\frac{-1}{\log p}\right)\left(q\frac{1}{(1-q)^2}\right) \\
+&= \frac{p-1}{p^2 \log p}.
+\end{align}
+
+\noindent Therefore, the variance of $X$ is
+\begin{align}
+Var[X] &= \frac{p-1}{p^2 \log p} - \left(\frac{p - 1}{p \log p}\right)^2 \\ 
+&= \frac{\log (p) (p-1) - (p-1)^2}{p^2 \log^2(p)} \\
+&= \frac{(p-1)\left[\log(p) - p + 1\right]}{p^2 \log^2(p)}.
+\end{align}
+
+\pagebreak
+
+\noindent\mybox{\textbf{3.20}}  Let the random variable $X$ have the pdf $$f(x) = \frac{2}{\sqrt{2\pi}}e^{-x^2/2},$$ with $0<x< \infty$.  \textbf{(a)} Find the mean and variance of $X$.  \textbf{(b)}  If $X$ has the folded normal distribution, find the transformation $g(X) = Y$ and values of $\alpha$ and $\beta$ so that $Y \sim \text{ gamma}(\alpha, \beta)$.  
+
+\vspace{3mm}
+
+\noindent\mybox{\textbf{Solution:}}  \textbf{(a)} The mean of $X$ is 
+\begin{align}
+E[X] &= \int\limits_{0}^{\infty}x\frac{2}{\sqrt{2\pi}}e^{-x^2/2}dx \\
+&=\frac{-2}{\sqrt{2\pi}}\int\limits_{0}^{\infty}(-x)e^{-x^2/2}dx \\
+&=\frac{-2}{\sqrt{2\pi}}\left[ e^{-x^2/2}\right]_{0}^{\infty} \\
+&= \frac{2}{\sqrt{2\pi}}.
+\end{align}
+
+\noindent The second moment of $X$ is 
+\begin{align}
+E[X^2] &= \int_{0}^{\infty}x^2\frac{2}{\sqrt{2\pi}}e^{-x^2/2}dx \\
+&= \frac{-2}{\sqrt{2\pi}}\int_{0}^{\infty}(x)(-xe^{-x^2/2})dx \\
+&= \frac{-2}{\sqrt{2\pi}}\left\lbrace\left[xe^{-x^2/2} \right]_{0}^{\infty} - \int_{0}^{\infty}e^{-x^2/2}dx\right\rbrace \\
+&= \frac{-2}{\sqrt{2\pi}}\left(-\sqrt{\frac{\pi}{2}}\right) \\
+&= 1.
+\end{align}
+
+\noindent Therefore, the variance of $X$ is $$Var[X] = 1 - \frac{2}{\pi}.$$
+
+\vspace{3mm}
+
+\noindent \textbf{(b)}   This can be solved using Theorem 2.1.5 from the textbook.  We want $$f_Y(y) = \frac{y^{\alpha -1} e^{-y/\beta}}{\Gamma(\alpha)\beta^{\alpha}}.$$  From theorem 2.1.5, we also know that the nonzero values of $f_Y$ have the form $f_Y(y) = f_X(g^{-1}(y))|\frac{d}{dy}g^{-1}(y)|$.  Choosing $g^{-1}(y) = \sqrt{y}$ gives
+
+\begin{align}
+f_Y(y) &= \frac{2}{\sqrt{2\pi}}e^{-y/2}\frac{1}{2\sqrt{y}} \\ 
+&= \frac{y^{\frac{1}{2} - 1}e^{-y/2}}{\sqrt{2}\sqrt{\pi}} \\
+&= \frac{y^{\frac{1}{2} - 1}e^{-y/2}}{2^{\frac{1}{2}}\Gamma\left(\frac{1}{2}\right)}
+\end{align}
+
+\noindent So the transformation is $Y=g(X) = X^2$ and $\alpha = \frac{1}{2}$, $\beta = 2$.  
+
+
+
+\end{document}
