@@ -1,0 +1,207 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+
+\linespread{1.8}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{1pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+
+\title{STS 531:  Mathematical Statistics I \\
+	   \textbf{Homework V}}
+\author{Nolan R. H. Gagnon}
+\begin{document}
+\maketitle
+
+\noindent\mybox{\textbf{1.}}  Show that $\theta$, the acute angle between the two lines of regression is given by $$\tan(\theta)=\frac{1-\rho^2}{\rho}\frac{\sigma_x\sigma_y}{\sigma_x^2+\sigma_y^2}.$$  Interpret the cases $\rho = 0$ and $\rho = \pm 1$.  
+
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}}  The equations of the regression lines will be $$E[Y|X=x] = \mu_Y + \rho\frac{\sigma_Y}{\sigma_X}(x-\mu_X)$$ and $$E[X|Y=y] = \mu_X + \rho\frac{\sigma_X}{\sigma_Y}(y-\mu_Y).$$  The slope of the first regression line is clearly $\rho\frac{\sigma_Y}{\sigma_X}$.  Rearranging the second regression equation to $$(E[X|Y=y]-\mu_X)\frac{\sigma_Y}{\rho\sigma_X} = y - \mu_Y$$ reveals that the slope of this line is $\frac{\sigma_Y}{\rho\sigma_X}$.  The angle between the two lines will be given by $$\theta = \arctan\left(\frac{\sigma_y}{\rho\sigma_X}\right) - \arctan\left(\rho\frac{\sigma_Y}{\sigma_X}\right).$$  Therefore
+
+\pagebreak
+
+\begin{align}
+\tan(\theta) &= \tan\left(\arctan\left(\frac{\sigma_y}{\rho\sigma_X}\right) - \arctan\left(\rho\frac{\sigma_Y}{\sigma_X}\right)\right) \\
+&= \frac{\tan\left(\arctan\left(\frac{\sigma_y}{\rho\sigma_X}\right) \right)- \tan\left( \arctan\left(\rho\frac{\sigma_Y}{\sigma_X}\right)\right)}{1+\tan\left(\arctan\left(\frac{\sigma_Y}{\rho\sigma_X}\right)\right)\tan\left(\arctan\left(\rho\frac{\sigma_Y}{\sigma_X}\right)\right)} \\
+&= \frac{\frac{\sigma_Y}{\rho\sigma_X}- \frac{\rho\sigma_Y}{\sigma_X}}{1+\frac{\sigma_Y^2}{\sigma_X^2}} \\
+&= \frac{\sigma_Y\sigma_X - \rho^2\sigma_X\sigma_Y}{\rho\sigma_X^2+\rho\sigma_Y^2} \\
+&= \frac{(1-\rho^2)\sigma_Y\sigma_X}{\rho(\sigma_X^2+\sigma_Y^2)}.
+\end{align}
+
+\noindent This completes the proof.
+
+\vspace{3mm}
+
+\noindent For the case of $\rho = 0$, we have $\tan(\theta) = \infty$, which indicates that the lines of regression must be perpendicular.  For $\rho = \pm 1$, we will have $\tan(\theta) = 0$, which means the two lines are the same.
+
+\pagebreak
+
+\noindent\mybox{\textbf{2.}}  Let $X_1, X_2$ and $X_3$ be uncorrelated random variables having the same standard deviation.  Obtain the correlation coefficient between $X_1 + X_2$ and $X_2+X_3$.
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}}  Let $X_1, X_2$ and $X_3$ be $\sigma_1, \sigma_2$, and $\sigma_3$, respectively. The correlation coefficient between $X_1+X_2$ and $X_2+X_3$ is
+\begin{align}
+\rho_{X_1+X_2, X_2+X_3} &= \frac{\text{Cov}(X_1+X_2, X_2+X_3)}{\sigma_{X_1+X_2}\sigma_{X_2+X_3}}.
+\end{align}
+
+\noindent We have
+
+\begin{align}
+\text{Cov}(X_1+X_2, X_2+X_3) &= E[(X_1+X_2)(X_2+X_3)]-E[X_1+X_2]E[X_2+X_3] \\
+&= E[X_1X_2+X_1X_3+X_2^2+X_2X_3]-(E[X_1] + E[X_2])(E[X_2]+E[X_3]) \\
+&= E[X_1X_2]+E[X_1X_3]+E[X_2^2]+E[X_2X_3]-E[X_1]E[X_2]-E[X_1]E[X_3]-E^2[X_2]-E[X_2]E[X_3] \\
+&=(E[X_1X_2]-E[X_1]E[X_2]) + (E[X_1X_3]-E[X_1]E[X_3]) + (E[X_2^2]-E^2[X_2]) + (E[X_2X_3]-E[X_2]E[X_3]) \\
+&=\text{Cov}(X_1,X_2) + \text{Cov}(X_1,X_3) + \text{Var}(X_2) + \text{Cov}(X_2,X_3) \\
+&=\sigma_2^2.
+\end{align}
+
+\noindent As for the variance of $X_1+X_2$, we have
+\begin{align}
+\sigma_{X_1+X_2}^2 &= E[(X_1+X_2)^2] - E^2[X_1+X_2] \\
+&= E[X_1^2+2X_1X_2+X_2^2]-(E[X_1]+E[X_2])^2 \\
+&=E[X_1^2]+2E[X_1X_2]+E[X_2^2] - E^2[X_1] - 2E[X_1]E[X_2]-E^[X_2] \\
+&= \sigma_1^2 + \sigma_2^2 + \text{Cov}(X_1,X_2) \\
+&= \sigma_1^2 + \sigma_2^2.
+\end{align}
+
+\noindent Therefore, $\sigma_{X_1+X_2} = \sqrt{\sigma_1^2+\sigma_2^2}$.  By a similar calculation, $\sigma_{X_2+X_3} = \sqrt{\sigma^2_2 + \sigma^2_3}$.  Thus, the correlation coefficient between $X_1+X_2$ and $X_2 + X_3$ is $$\frac{\sigma_2^2}{\sqrt{(\sigma_1^2+\sigma_2^2)(\sigma_2^2+\sigma_3^2)}}.$$  Now, since $\sigma_1 = \sigma_2 = \sigma_3 = \sigma$, this simplifies to $$\rho_{X_1+X_2, X_2+X_3} = \frac{\sigma^2}{\sqrt{4\sigma^4}} = \frac{1}{2}.$$
+
+\pagebreak
+
+\noindent\mybox{\textbf{3.}}  If $X_1$ and $X_2$ are two variables with variances $\sigma_1^2$ and $\sigma_2^2$, respectively, and $\rho$ is the correlation coefficient between them, determine $k$ such that $X_1+kX_2$ and $X_1+\left(\frac{\sigma_1}{\sigma_2}\right)X_2$ are uncorrelated.
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}}  If $X_1+kX_2$ and $X_1+\left(\frac{\sigma_1}{\sigma_2}\right)$ are uncorrelated, then their covariance must be $0$.  Thus,
+\begin{align}
+0 &= E\left[(X_1+kX_2)\left(X_1+\left(\frac{\sigma_1}{\sigma_2}\right)X_2\right)\right] - E[X_1+kX_2]E[X_1+\left(\frac{\sigma_1}{\sigma_2}\right)X_2)] \\
+&= E\left[X_1^2 + \left(\frac{\sigma_1}{\sigma_2}\right)X_1X_2+kX_1X_2+k\left(\frac{\sigma_1}{\sigma_2}\right)X_2^2\right] - E^2[X_1]-\frac{\sigma_1}{\sigma_2}E[X_1]E[X_2]-kE[X_2]E[X_1]-k\frac{\sigma_1}{\sigma_2}E^2[X_2] \\
+&=\sigma_1^2+\frac{\sigma_1}{\sigma_2}\text{Cov}(X_1,X_2) + k\text{Cov}(X_1,X_2) + k\frac{\sigma_1}{\sigma_2}\sigma_2^2 \\
+&= \sigma_1^2+\frac{\sigma_1}{\sigma_2}\rho\sigma_1\sigma_2 + k\rho\sigma_1\sigma_2 + k\frac{\sigma_1}{\sigma_2}\sigma_2^2.
+\end{align}
+
+\noindent Therefore, we must have 
+\begin{align}
+k\left(\rho\sigma_1\sigma_2+\sigma_1\sigma_2\right) &= -\sigma_1^2-\rho\sigma_1^2, 
+\end{align}
+
+\noindent so 
+
+\begin{align}
+k &= \frac{-\sigma_1^2(1+\rho)}{\sigma_1\sigma_2(\rho+1)} \\
+&=\frac{-\sigma_1}{\sigma_2}.
+\end{align}
+
+\pagebreak
+
+\noindent\mybox{\textbf{4.}}  Suppose both regression curves are, in fact, linear.  Specifically, assume that $$E[Y|X=x] = -\frac{3}{2}x-2$$ and $$E[X|Y=y] = -\frac{3}{5}y-3.$$  \textbf{(a)}  Find the correlation coefficient $\rho$.  \textbf{(b)}  Find $E[X]$ and $E[Y]$.  
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}}  \textbf{(a)}  If the regression curve is linear, then $(X,Y)$ must have a bivariate normal distribution, which means $$E[Y|X=x] = \mu_Y + \rho\frac{\sigma_Y}{\sigma_X}(x-\mu_x)$$ and $$E[X|Y=y] = \mu_X + \rho\frac{\sigma_X}{\sigma_Y}(y-\mu_Y).$$  Therefore, it must be the case that $-\frac{3}{2} = \rho\frac{\sigma_Y}{\sigma_X}$ and $-\frac{3}{5} = \rho\frac{\sigma_X}{\sigma_Y}.$  Let $\alpha = \frac{\sigma_Y}{\sigma_X}$.  Then we have $-\frac{3}{2} =\rho\alpha$ and $-\frac{3}{5} = \frac{\rho}{\alpha}$.  So $\alpha = -\frac{3}{2\rho}$.  Thus $-\frac{3}{5} = -\frac{2\rho^2}{3}$.  Solving this equation for $\rho$ yields $\rho = \pm\frac{3}{\sqrt{10}}$.  The correct solution is $\rho = \frac{3}{\sqrt{10}}$ because the slopes in the regression lines are negative.  We can see that this is a valid value for $\rho$, since $\sqrt{10} > 3$, which makes $0 < \frac{3}{\sqrt{10}} < 1$.
+
+\vspace{3mm}
+
+\noindent\textbf{(b)}  We can find $E[X]$ and $E[Y]$ using the fact that $E[E[X|Y]] = E[X]$ and $E[E[Y|X] = E[Y]$.  Applying this to the first regression line yields $$\mu_y = -\frac{3}{2}\mu_x - 2.$$  Applying it to the second regression line yields $$\mu_x = -\frac{3}{5}\mu_Y-3.$$  We have two equations in two unknowns.  The solution is $\mu_Y = 25$ and $\mu_X = -18$.  
+
+\pagebreak
+
+\noindent\mybox{\textbf{5.}}  Suppose $X,Y$ and $Z$ are uncorrelated random variables with standard deviations $5,12,$ and $9$, respectively.  If $U=X+Y$ and $V=Y+Z$, evaluate the correlation coefficient between $U$ and $V$.  
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}}  We can use the general formula found in Problem 2 above.  We will have
+\begin{align}
+\rho_{X+Y,Y+Z} &= \frac{144}{\sqrt{(25+144)(144+81)}} \\
+&= \frac{144}{\sqrt{169}\sqrt{225}} \\
+&= \frac{144}{13\times 15} \\
+&= \frac{144}{195} \\
+&\approx 0.7384615.  
+\end{align}
+
+\pagebreak
+
+\noindent\mybox{\textbf{6.}}  The variates, $X$ and $Y$, have zero means, the same variance $\sigma^2$ and zero correlation.  Show that $$U=X\cos(\alpha) +Y\sin(\alpha)$$ and $$V=X\sin(\alpha)-Y\cos(\alpha)$$ have the same variance $\sigma^2$ and zero correlation.
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}}  The variance of $U$ is
+\begin{align}
+\text{Var}(U) &= E[(X\cos(\alpha)+Y\sin(\alpha))^2]-E^2[X\cos(\alpha)+Y\sin(\alpha)] \\
+&= E[X^2\cos^2(\alpha)+2XY\cos(\alpha)\sin(\alpha)+Y^2\sin^2(\alpha)] - E^2[X]\cos^2(\alpha)-2\cos(\alpha)\sin(\alpha)E[X]E[Y]-E^2[Y]\sin^2(\alpha) \\
+&=\cos^2(\alpha)\sigma^2 + 2\cos(\alpha)\sin(\alpha)\text{Cov}(X,Y)+\sin^2(\alpha)\sigma^2 \\
+&= \sigma^2(\cos^2(\alpha)+\sin^2(\alpha)) \\
+&= \sigma^2.
+\end{align}
+
+\noindent The variance of $V$ is
+\begin{align}
+\text{Var}(V) &= E[(X\sin(\alpha)-Y\cos(\alpha))^2]-E^2[X\sin(\alpha)-Y\cos(\alpha)] \\
+&= E[X^2\sin^2(\alpha)-2XY\cos(\alpha)\sin(\alpha)+Y^2\cos^2(\alpha)] - E^2[X]\sin^2(\alpha)+2\cos(\alpha)\sin(\alpha)E[X]E[Y]-E^2[Y]\cos^2(\alpha) \\
+&=\sin^2(\alpha)\sigma^2 - 2\cos(\alpha)\sin(\alpha)\text{Cov}(X,Y)+\cos^2(\alpha)\sigma^2 \\
+&= \sigma^2(\sin^2(\alpha)+\cos^2(\alpha)) \\
+&= \sigma^2.
+\end{align}
+
+\noindent As for the correlation between $U$ and $V$, we can show it is zero by showing that the covariance of $U$ and $V$ is zero.  We have
+\begin{align}
+\text{Cov}(U,V) &= E[(X\cos(\alpha)+Y\sin(\alpha))(X\sin(\alpha)-Y\cos(\alpha))] - E[X\cos(\alpha)+Y\sin(\alpha)]E[X\sin(\alpha)-Y\cos(\alpha))] \\
+&= \sigma^2\cos(\alpha)\sin(\alpha)-\cos^2(\alpha)\text{Cov}(X,Y)+\sin^2(\alpha)\text{Cov}(X,Y)-\sigma^2\cos(\alpha)\sin(\alpha) \\
+&= 0,
+\end{align}
+\noindent since the covariance between $X$ and $Y$ must be $0$. 
+
+\pagebreak
+
+\noindent\mybox{\textbf{7.}}  Let $(X,Y)$ be a continuous random variable with pdf $$f(x,y) = 
+\begin{cases}
+2, \hspace{2mm} \text{ if } 0<y<x<1 \\
+0, \hspace{2mm} \text{ elsewhere}
+\end{cases}$$
+
+Find $E[Y|X=x]$ and $E[X|Y=y]$.
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}}  The marginal distribution of $Y$ is
+\begin{align}
+f_Y(y) &= \int\limits_y^1 2 \hspace{2mm}dx \\
+&= 2 - 2y,
+\end{align}
+
+\noindent for $0<y<1$.  The marginal distribution of $X$ is 
+\begin{align}
+f_X(x) &= \int\limits_0^x 2 \hspace{2mm} dy \\
+&= 2x,
+\end{align}
+
+\noindent for $0<x<1$.  Now we can find the conditional pdfs.  We have $$f_{Y|X}(y|x) = \frac{2}{2x} = \frac{1}{x}$$ and $$f_{X|Y}(x|y) = \frac{2}{2-2y}.$$  Using these pdfs, we can find the conditional expectations.  We have
+\begin{align}
+E[Y|X=x] &= \int\limits_0^x \frac{y}{x} \hspace{2mm} dy \\
+&= \frac{1}{2x}\left[y^2\right]^x_0 \\
+&= \frac{x}{2}.
+\end{align}
+
+\noindent The other conditional expectation will be 
+\begin{align}
+E[X|Y=y] &= \int\limits_y^1 \frac{2x}{2-2y} \hspace{2mm} dx \\
+&= \frac{1}{2-2y}\left[x^2\right]^1_y \\
+&= \frac{1-y^2}{2-2y} \\
+&= \frac{(1-y)(1+y)}{2(1-y)} \\
+&= \frac{1+y}{2}.
+\end{align}
+\end{document}
